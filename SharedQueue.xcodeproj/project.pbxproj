@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E9057BBC2BB0DA6600B763BA /* SharedQueueProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9057BBB2BB0DA6600B763BA /* SharedQueueProtocol.swift */; };
 		E9057BC32BB10CED00B763BA /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = E9057BC22BB10CED00B763BA /* Starscream */; };
 		E9057BC52BB1155F00B763BA /* ConnectedQueueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9057BC42BB1155F00B763BA /* ConnectedQueueView.swift */; };
 		E931DC472BB0846C00DFDD18 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = E931DC462BB0846C00DFDD18 /* GoogleSignIn */; };
@@ -39,6 +38,7 @@
 		E9AA15E72BB0A45F00F1CDBA /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = E9AA15E62BB0A45F00F1CDBA /* FirebaseStorage */; };
 		E9AA15E92BB0A81000F1CDBA /* GroupCreatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AA15E82BB0A81000F1CDBA /* GroupCreatedView.swift */; };
 		E9AA16052BB0B20F00F1CDBA /* SwiftVibrant in Frameworks */ = {isa = PBXBuildFile; productRef = E9AA16042BB0B20F00F1CDBA /* SwiftVibrant */; };
+		E9B0B7532BC1B7DF00CD08F4 /* SharedQSync in Frameworks */ = {isa = PBXBuildFile; productRef = E9B0B7522BC1B7DF00CD08F4 /* SharedQSync */; };
 		E9B1C1AA2BB20B910024CBD7 /* SwiftUIShakeGesture in Frameworks */ = {isa = PBXBuildFile; productRef = E9B1C1A92BB20B910024CBD7 /* SwiftUIShakeGesture */; };
 		E9BEEA052BB22136001BCD2A /* ConnectedAdminSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BEEA042BB22136001BCD2A /* ConnectedAdminSettings.swift */; };
 		E9D2550D2BB0BD7200820873 /* ConfirmJoinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D2550C2BB0BD7200820873 /* ConfirmJoinView.swift */; };
@@ -48,7 +48,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E9057BBB2BB0DA6600B763BA /* SharedQueueProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedQueueProtocol.swift; sourceTree = "<group>"; };
 		E9057BBD2BB0F02E00B763BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		E9057BC42BB1155F00B763BA /* ConnectedQueueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectedQueueView.swift; sourceTree = "<group>"; };
 		E931DC522BB08B6000DFDD18 /* FIRManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIRManager.swift; sourceTree = "<group>"; };
@@ -90,6 +89,7 @@
 				E9D255132BB0CBB900820873 /* Glur in Frameworks */,
 				E93B6D362BB3D4C000CE1DD3 /* SpotifyAPI in Frameworks */,
 				E9AA15E52BB0A32000F1CDBA /* MusadoraKit in Frameworks */,
+				E9B0B7532BC1B7DF00CD08F4 /* SharedQSync in Frameworks */,
 				E9AA15E72BB0A45F00F1CDBA /* FirebaseStorage in Frameworks */,
 				E9B1C1AA2BB20B910024CBD7 /* SwiftUIShakeGesture in Frameworks */,
 				E94E4CB62BAFE360002E1092 /* FirebaseAuth in Frameworks */,
@@ -133,7 +133,6 @@
 				E9D2550E2BB0BFEB00820873 /* Preview */,
 				E9AA15E82BB0A81000F1CDBA /* GroupCreatedView.swift */,
 				E955AAFC2BB1256500241CBE /* Connected */,
-				E9057BBB2BB0DA6600B763BA /* SharedQueueProtocol.swift */,
 				E931DC542BB0A24300DFDD18 /* MusicService.swift */,
 				E931DC562BB0A26600DFDD18 /* AppleMusicService.swift */,
 				E931DC522BB08B6000DFDD18 /* FIRManager.swift */,
@@ -232,6 +231,7 @@
 				E9B1C1A92BB20B910024CBD7 /* SwiftUIShakeGesture */,
 				E93B6D352BB3D4C000CE1DD3 /* SpotifyAPI */,
 				E97BD5F52BB4CF62008172D9 /* SpotifyiOS */,
+				E9B0B7522BC1B7DF00CD08F4 /* SharedQSync */,
 			);
 			productName = SharedQueue;
 			productReference = E94E4C8F2BAFE17F002E1092 /* SharedQueue.app */;
@@ -271,6 +271,7 @@
 				E9B1C1A82BB20B910024CBD7 /* XCRemoteSwiftPackageReference "swiftui-shake-gesture" */,
 				E93B6D342BB3D4C000CE1DD3 /* XCRemoteSwiftPackageReference "SpotifyAPI" */,
 				E97BD5F42BB4CF62008172D9 /* XCRemoteSwiftPackageReference "ios-sdk" */,
+				E9B0B7512BC1B7DF00CD08F4 /* XCRemoteSwiftPackageReference "SharedQSync" */,
 			);
 			productRefGroup = E94E4C902BAFE17F002E1092 /* Products */;
 			projectDirPath = "";
@@ -304,7 +305,6 @@
 				E94E4CBC2BAFE646002E1092 /* GradientButton.swift in Sources */,
 				E931DC532BB08B6000DFDD18 /* FIRManager.swift in Sources */,
 				E97BD5F32BB4B7E5008172D9 /* SpotifyService.swift in Sources */,
-				E9057BBC2BB0DA6600B763BA /* SharedQueueProtocol.swift in Sources */,
 				E94E4CA42BAFE1B4002E1092 /* OnboardingAuth.swift in Sources */,
 				E9E7FE5D2BB502C500D6702F /* ConnectedAddToQueueView.swift in Sources */,
 				E97BD5F92BB4D6FE008172D9 /* SpotifyConnectionSheet.swift in Sources */,
@@ -606,6 +606,14 @@
 				kind = branch;
 			};
 		};
+		E9B0B7512BC1B7DF00CD08F4 /* XCRemoteSwiftPackageReference "SharedQSync" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/paytontech/SharedQSync";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		E9B1C1A82BB20B910024CBD7 /* XCRemoteSwiftPackageReference "swiftui-shake-gesture" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/globulus/swiftui-shake-gesture";
@@ -669,6 +677,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E9AA16032BB0B20F00F1CDBA /* XCRemoteSwiftPackageReference "swift-vibrant" */;
 			productName = SwiftVibrant;
+		};
+		E9B0B7522BC1B7DF00CD08F4 /* SharedQSync */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E9B0B7512BC1B7DF00CD08F4 /* XCRemoteSwiftPackageReference "SharedQSync" */;
+			productName = SharedQSync;
 		};
 		E9B1C1A92BB20B910024CBD7 /* SwiftUIShakeGesture */ = {
 			isa = XCSwiftPackageProductDependency;
