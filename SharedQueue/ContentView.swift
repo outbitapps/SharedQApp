@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftUIShakeGesture
 import FirebaseAuth
+import SharedQProtocol
 
 struct ContentView: View {
     @AppStorage("completedOnboarding") var completedOnboarding = false
@@ -23,7 +24,7 @@ struct ContentView: View {
         NavigationStack {
             VStack {
                 List {
-                    if firManager.groups.count == firManager.currentUser?.groups.count {
+                    if firManager.groups.count == firManager.currentUser!.groups.count {
                         ForEach(firManager.groups) { group in
                             NavigationLink {
                                 ConfirmJoinView(group: group).navigationBarBackButtonHidden(true)
@@ -50,14 +51,14 @@ struct ContentView: View {
             }.toolbar(content: {
                 ToolbarItem(placement: .navigation) {
                     Button(action: {
-                        if firManager.groups.count == firManager.currentUser?.groups.count {
+                        if firManager.groups.count == firManager.currentUser!.groups.count {
                             showingCreateView.toggle()
                         }
                     
                     }, label: {
                         HStack {
                             Text("Groups").font(.largeTitle).fontWeight(.bold)
-                            if firManager.groups.count != firManager.currentUser?.groups.count {
+                            if firManager.groups.count != firManager.currentUser!.groups.count {
                                 ProgressView()
                             } else {
                                 Image(systemName: "plus").foregroundStyle(.blue)
@@ -286,7 +287,7 @@ struct CreateGroupView: View {
     }
     func createGroup() async {
         if !groupName.isEmpty {
-            let group = SQGroup(id: UUID().uuidString, name: groupName, owner: firManager.currentUser!, defaultPermissions: SQDefaultPermissions(id: UUID().uuidString, membersCanControlPlayback: membersControlPlayback, membersCanAddToQueue: membersAddToQueue), publicGroup: publicGroup, askToJoin: askToJoin)
+            let group = SQGroup(id: UUID().uuidString, name: groupName, owner: firManager.currentUser!, defaultPermissions: SQDefaultPermissions(id: UUID().uuidString, membersCanControlPlayback: membersControlPlayback, membersCanAddToQueue: membersAddToQueue), publicGroup: publicGroup, askToJoin: askToJoin, previewQueue: [])
             if await firManager.createGroup(group) {
                 groupBeingCreated = group
                 dismiss()

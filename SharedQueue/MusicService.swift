@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SharedQProtocol
 
 protocol MusicService {
     func getMostRecentSong() async -> SQSong?

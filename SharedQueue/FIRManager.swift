@@ -10,6 +10,7 @@ import Foundation
 import Network
 import SharedQSync
 import Starscream
+import SharedQProtocol
 
 class FIRManager: ObservableObject {
     @Published var currentUser: SQUser?
@@ -22,7 +23,6 @@ class FIRManager: ObservableObject {
     var baseURL: String
     var baseWSURL: String
     static var shared = FIRManager()
-    var socket: WebSocket?
     init() {
         baseURL = "http://\(env.rawValue)"
         baseWSURL = "ws://\(env.rawValue)"
@@ -164,11 +164,11 @@ extension FIRManager: SharedQSyncDelegate {
     func onGroupConnect() {
         connectedToGroup = true
         Task {
-            await musicService.playSong(song: connectedGroup!.currentlyPlaying)
+            await musicService.playSong(song: connectedGroup!.currentlyPlaying!)
         }
     }
 
-    func onGroupUpdate(_ group: SharedQSync.SQGroup, _ message: SharedQSync.WSMessage) {
+    func onGroupUpdate(_ group: SQGroup, _ message: WSMessage) {
 //        self.connectedGroup = group
         DispatchQueue.main.async {
             self.objectWillChange.send()
@@ -188,7 +188,7 @@ extension FIRManager: SharedQSyncDelegate {
         }
     }
 
-    func onNextSong(_ message: SharedQSync.WSMessage) {
+    func onNextSong(_ message: WSMessage) {
         Task {
             await musicService.playSong(song: connectedGroup!.currentlyPlaying!)
             var delay = Date().timeIntervalSince(message.sentAt)
@@ -196,26 +196,26 @@ extension FIRManager: SharedQSyncDelegate {
         }
     }
 
-    func onPrevSong(_ message: SharedQSync.WSMessage) {
+    func onPrevSong(_ message: WSMessage) {
         Task {
             await musicService.prevSong()
         }
     }
 
-    func onPlay(_ message: SharedQSync.WSMessage) {
+    func onPlay(_ message: WSMessage) {
         Task {
             await musicService.playSong(song: connectedGroup!.currentlyPlaying!)
             await musicService.playAt(timestamp: connectedGroup!.playbackState!.timestamp)
         }
     }
 
-    func onPause(_ message: SharedQSync.WSMessage) {
+    func onPause(_ message: WSMessage) {
         Task {
             await musicService.pauseSong()
         }
     }
 
-    func onTimestampUpdate(_ timestamp: TimeInterval, _ message: SharedQSync.WSMessage) {
+    func onTimestampUpdate(_ timestamp: TimeInterval, _ message: WSMessage) {
         Task {
             var delay = Date().timeIntervalSince(message.sentAt)
             print(delay)
@@ -228,7 +228,7 @@ extension FIRManager: SharedQSyncDelegate {
         }
     }
 
-    func onSeekTo(_ timestamp: TimeInterval, _ message: SharedQSync.WSMessage) {
+    func onSeekTo(_ timestamp: TimeInterval, _ message: WSMessage) {
         Task {
             await musicService.seekTo(timestamp: timestamp)
         }

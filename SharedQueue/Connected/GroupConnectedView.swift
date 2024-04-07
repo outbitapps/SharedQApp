@@ -7,7 +7,7 @@
 
 import SwiftUI
 import MusicKit
-
+import SharedQProtocol
 struct GroupConnectedView: View {
     @StateObject var firManager = FIRManager.shared
     @State var backgroundColor: Color = Color.secondary
@@ -47,122 +47,20 @@ struct GroupConnectedView: View {
                     Slider(value: $playbackTime, in: 0...group.currentlyPlaying!.duration) { editing in
                         print(editing)
                     }
-                    HStack {
-                        Button(action: {
-                            
-                        }, label: {
-                            Image(systemName: "backward.fill")
-                        })
-                        Spacer()
-                        Button(action: {
-                            Task {
-                                if let playbackState = group.playbackState {
-                                    if playbackState.state == .play {
-                                        await firManager.pauseSong()
-                                    } else {
-                                        await firManager.playSong()
-                                    }
-                                }
-                            }
-                        }, label: {
-                            let playbackState = group.playbackState!
-                            Image(systemName: playbackState.state == PlayPauseState.play ? "pause.fill" : "play.fill").font(.system(size: 60)).symbolEffect(.bounce, value: playbackState.state)
-                        })
-                        Spacer()
-                        Button {
-                            Task {
-                                await firManager.nextSong()
-                            }
-                        } label: {
-                            Image(systemName: "forward.fill")
-                        }
-
-                    }.font(.system(size: 50)).padding(30).disabled(!myPermissions.canControlPlayback)
+                    PlaybackControls(group: group).disabled(!myPermissions.canControlPlayback)
                     Spacer()
-                    HStack {
-                        Button(action: {
-                            Task {
-                                firManager.connectedToGroup = false
-                                
-                                firManager.socket!.disconnect()
-                            }
-                        }, label: {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 15.0).foregroundStyle(Color.red).opacity(0.2).overlay {
-                                    RoundedRectangle(cornerRadius: 15.0).stroke(Color.red, lineWidth: 1.5)
-                                }
-                                Text("Leave").foregroundStyle(Color.red).font(.title3).bold()
-                            }
-                        }).frame(height: 50).padding(5)
-                        Button(action: {
-                            showingQueue = true
-                        }, label: {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 15.0).foregroundStyle(bottomColor.secondary).opacity(0.2).overlay {
-                                    RoundedRectangle(cornerRadius: 15.0).stroke(bottomColor.secondary, lineWidth: 1.5)
-                                }
-                                Text("Queue").foregroundStyle(bottomColor).font(.title3).bold()
-                            }
-                        }).frame(height: 50).padding(5)
-                        
-                    }
-                    if isGroupOwner {
-                        Button(action: {
-                            showingAdminSettings = true
-                        }, label: {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 15.0).foregroundStyle(bottomColor.secondary).opacity(0.2).overlay {
-                                    RoundedRectangle(cornerRadius: 15.0).stroke(bottomColor.secondary, lineWidth: 1.5)
-                                }
-                                Text("Admin Settings").foregroundStyle(bottomColor).font(.title3).bold()
-                            }
-                        }).frame(height: 50).padding(5)
-                    } else {
-                        Text("remember: playback controls sync between everyone! if you skip a song, that song is skipped for everybody.").font(.caption).foregroundStyle(.secondary)
-                    }
+                    groupControls()
                 }.padding().foregroundStyle(Color.white.fromHex(firManager.connectedGroup!.currentlyPlaying!.colors[0])!.isDark ? .white : .black).scaleEffect(x: showingQueue || showingAdminSettings ? 0.8 : 1.0, y: showingQueue || showingAdminSettings ? 0.8 : 1.0).blur(radius: showingQueue || showingAdminSettings ? 50 : 0).animation(.spring, value: showingQueue).animation(.spring, value: showingAdminSettings).overlay {
                     if showingQueue {
                         Rectangle().ignoresSafeArea().opacity(0)
                     }
                 }
                 if showingQueue {
-                    ConnectedQueueView(showingQueue: $showingQueue).keyframeAnimator(initialValue: ShowingQueueAnimationValues.EnterQueue, trigger: count) { view, val in
-                        view.scaleEffect(x: val.scaleX, y: val.scaleY).blur(radius: val.blurRadius).opacity(val.opacity)
-                    } keyframes: { val in
-                        KeyframeTrack(\.scaleX) {
-                            
-                            SpringKeyframe(1.0, duration: 0.8, spring: .bouncy(extraBounce: 0.05))
-                        }
-                        KeyframeTrack(\.scaleY) {
-                            SpringKeyframe(1.0, duration: 0.8, spring: .bouncy(extraBounce: 0.05))
-                        }
-                        KeyframeTrack(\.blurRadius) {
-                            SpringKeyframe(0.0, duration: 0.8, spring: .bouncy(extraBounce: 0.05))
-                        }
-                        KeyframeTrack(\.opacity) {
-                            SpringKeyframe(1.0, duration: 0.8, spring: .bouncy(extraBounce: 0.05))
-                        }
-                    }
+                    queueView()
 
                 }
                 if showingAdminSettings {
-                    ConnectedAdminSettings(showingAdminSettings: $showingAdminSettings).keyframeAnimator(initialValue: ShowingQueueAnimationValues.EnterQueue, trigger: count) { view, val in
-                        view.scaleEffect(x: val.scaleX, y: val.scaleY).blur(radius: val.blurRadius).opacity(val.opacity)
-                    } keyframes: { val in
-                        KeyframeTrack(\.scaleX) {
-                            
-                            SpringKeyframe(1.0, duration: 0.8, spring: .bouncy(extraBounce: 0.05))
-                        }
-                        KeyframeTrack(\.scaleY) {
-                            SpringKeyframe(1.0, duration: 0.8, spring: .bouncy(extraBounce: 0.05))
-                        }
-                        KeyframeTrack(\.blurRadius) {
-                            SpringKeyframe(0.0, duration: 0.8, spring: .bouncy(extraBounce: 0.05))
-                        }
-                        KeyframeTrack(\.opacity) {
-                            SpringKeyframe(1.0, duration: 0.8, spring: .bouncy(extraBounce: 0.05))
-                        }
-                    }
+                    adminView()
                 }
             }.onChange(of: showingQueue) { oldValue, newValue in
                 count += 1
@@ -186,6 +84,123 @@ struct GroupConnectedView: View {
             ProgressView()
         }
     }
+    @ViewBuilder func groupControls() -> some View {
+        HStack {
+            Button(action: {
+                Task {
+                    await firManager.syncManager.disconnect()
+                }
+            }, label: {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 15.0).foregroundStyle(Color.red).opacity(0.2).overlay {
+                        RoundedRectangle(cornerRadius: 15.0).stroke(Color.red, lineWidth: 1.5)
+                    }
+                    Text("Leave").foregroundStyle(Color.red).font(.title3).bold()
+                }
+            }).frame(height: 50).padding(5)
+            Button(action: {
+                showingQueue = true
+            }, label: {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 15.0).foregroundStyle(bottomColor.secondary).opacity(0.2).overlay {
+                        RoundedRectangle(cornerRadius: 15.0).stroke(bottomColor.secondary, lineWidth: 1.5)
+                    }
+                    Text("Queue").foregroundStyle(bottomColor).font(.title3).bold()
+                }
+            }).frame(height: 50).padding(5)
+            
+        }
+        if isGroupOwner {
+            Button(action: {
+                showingAdminSettings = true
+            }, label: {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 15.0).foregroundStyle(bottomColor.secondary).opacity(0.2).overlay {
+                        RoundedRectangle(cornerRadius: 15.0).stroke(bottomColor.secondary, lineWidth: 1.5)
+                    }
+                    Text("Admin Settings").foregroundStyle(bottomColor).font(.title3).bold()
+                }
+            }).frame(height: 50).padding(5)
+        } else {
+            Text("remember: playback controls sync between everyone! if you skip a song, that song is skipped for everybody.").font(.caption).foregroundStyle(.secondary)
+        }
+    }
+    @ViewBuilder func queueView() -> some View {
+        ConnectedQueueView(showingQueue: $showingQueue).keyframeAnimator(initialValue: ShowingQueueAnimationValues.EnterQueue, trigger: count) { view, val in
+            view.scaleEffect(x: val.scaleX, y: val.scaleY).blur(radius: val.blurRadius).opacity(val.opacity)
+        } keyframes: { val in
+            KeyframeTrack(\.scaleX) {
+                
+                SpringKeyframe(1.0, duration: 0.8, spring: .bouncy(extraBounce: 0.05))
+            }
+            KeyframeTrack(\.scaleY) {
+                SpringKeyframe(1.0, duration: 0.8, spring: .bouncy(extraBounce: 0.05))
+            }
+            KeyframeTrack(\.blurRadius) {
+                SpringKeyframe(0.0, duration: 0.8, spring: .bouncy(extraBounce: 0.05))
+            }
+            KeyframeTrack(\.opacity) {
+                SpringKeyframe(1.0, duration: 0.8, spring: .bouncy(extraBounce: 0.05))
+            }
+        }
+    }
+    @ViewBuilder func adminView() -> some View {
+        ConnectedAdminSettings(showingAdminSettings: $showingAdminSettings).keyframeAnimator(initialValue: ShowingQueueAnimationValues.EnterQueue, trigger: count) { view, val in
+            view.scaleEffect(x: val.scaleX, y: val.scaleY).blur(radius: val.blurRadius).opacity(val.opacity)
+        } keyframes: { val in
+            KeyframeTrack(\.scaleX) {
+                
+                SpringKeyframe(1.0, duration: 0.8, spring: .bouncy(extraBounce: 0.05))
+            }
+            KeyframeTrack(\.scaleY) {
+                SpringKeyframe(1.0, duration: 0.8, spring: .bouncy(extraBounce: 0.05))
+            }
+            KeyframeTrack(\.blurRadius) {
+                SpringKeyframe(0.0, duration: 0.8, spring: .bouncy(extraBounce: 0.05))
+            }
+            KeyframeTrack(\.opacity) {
+                SpringKeyframe(1.0, duration: 0.8, spring: .bouncy(extraBounce: 0.05))
+            }
+        }
+    }
+}
+
+struct PlaybackControls: View {
+    @EnvironmentObject var firManager: FIRManager
+    var group: SQGroup
+    var body: some View {
+        HStack {
+            Button(action: {
+                
+            }, label: {
+                Image(systemName: "backward.fill")
+            })
+            Spacer()
+            Button(action: {
+                Task {
+                    if let playbackState = group.playbackState {
+                        if playbackState.state == .play {
+                            try? await firManager.syncManager.pauseSong()
+                        } else {
+                            try? await firManager.syncManager.playSong()
+                        }
+                    }
+                }
+            }, label: {
+                let playbackState = group.playbackState!
+                Image(systemName: playbackState.state == PlayPauseState.play ? "pause.fill" : "play.fill").font(.system(size: 60)).symbolEffect(.bounce, value: playbackState.state)
+            })
+            Spacer()
+            Button {
+                Task {
+                    try? await firManager.syncManager.nextSong()
+                }
+            } label: {
+                Image(systemName: "forward.fill")
+            }
+
+        }.font(.system(size: 50)).padding(30)
+    }
 }
 
 struct ShowingQueueAnimationValues {
@@ -201,6 +216,4 @@ extension MusicPlayer.State: Equatable {
     public static func == (lhs: MusicPlayer.State, rhs: MusicPlayer.State) -> Bool {
         return (lhs.playbackStatus) == (rhs.playbackStatus)
     }
-    
-    
 }

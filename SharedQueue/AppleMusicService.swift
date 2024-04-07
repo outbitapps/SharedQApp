@@ -11,7 +11,7 @@ import FirebaseStorage
 import SwiftUI
 import SwiftVibrant
 import MusicKit
-
+import SharedQProtocol
 class AppleMusicService: MusicService {
     func registerStateListeners() async {
         DispatchQueue.main.async {
@@ -21,7 +21,8 @@ class AppleMusicService: MusicService {
                     if let group = FIRManager.shared.connectedGroup {
                         if group.playbackState?.state == .play {
                             Task {
-                                await FIRManager.shared.pauseSong()
+                                try? await FIRManager.shared.syncManager.pauseSong()
+                                
                             }
                         }
                     }
@@ -29,7 +30,7 @@ class AppleMusicService: MusicService {
                     if let group = FIRManager.shared.connectedGroup {
                         if group.playbackState?.state == .pause {
                             Task {
-                                await FIRManager.shared.playSong()
+                                try? await FIRManager.shared.syncManager.playSong()
                             }
                         }
                     }
@@ -37,7 +38,7 @@ class AppleMusicService: MusicService {
                     if let group = FIRManager.shared.connectedGroup {
                         if group.playbackState?.state == .play {
                             Task {
-                                await FIRManager.shared.pauseSong()
+                                try? await FIRManager.shared.syncManager.pauseSong()
                             }
                         }
                     }
@@ -45,7 +46,7 @@ class AppleMusicService: MusicService {
                     if let group = FIRManager.shared.connectedGroup {
                         if group.playbackState?.state == .play {
                             Task {
-                                await FIRManager.shared.pauseSong()
+                                try? await FIRManager.shared.syncManager.pauseSong()
                             }
                         }
                     }

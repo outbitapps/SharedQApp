@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SharedQProtocol
 
 struct ConnectedAdminSettings: View {
     @StateObject var firManager = FIRManager.shared
@@ -141,7 +142,7 @@ struct MemberManagementCell: View {
                     Toggle("Controls Playback", isOn: $canControlPlayback).labelsHidden()
                 }
             }.padding(10).background(content: { Color.white.opacity(0.2) }).cornerRadius(20.0).onChange(of: canControlPlayback, initial: false) { oldValue, newValue in
-                firManager.connectedGroup!.members.first(where: {$0.user.id == user.user.id})?.canControlPlayback = newValue
+                FIRManager.shared.connectedGroup!.members[FIRManager.shared.connectedGroup!.members.firstIndex(where: {$0.user.id == user.user.id})!].canControlPlayback = newValue
                 loading = true
                 Task  {
                     await firManager.updateGroup(firManager.connectedGroup!)

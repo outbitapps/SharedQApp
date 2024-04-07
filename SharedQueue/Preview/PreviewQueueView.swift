@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Glur
+import SharedQProtocol
 
 struct PreviewQueueView: View {
     var group: SQGroup

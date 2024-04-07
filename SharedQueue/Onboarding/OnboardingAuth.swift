@@ -10,6 +10,7 @@ import AuthenticationServices
 import FirebaseAuth
 import GoogleSignIn
 import Firebase
+import SharedQProtocol
 
 struct OnboardingAuth: View {
     @EnvironmentObject var firManager: FIRManager

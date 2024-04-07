@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import SwiftVibrant
 import SpotifyiOS
+import SharedQProtocol
 class SpotifyService: NSObject, MusicService {
     @Published var notConnectedToSpotify = true
     lazy var appRemote: SPTAppRemote = {

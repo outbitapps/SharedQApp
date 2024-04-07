@@ -34,6 +34,7 @@
 		E97BD5F32BB4B7E5008172D9 /* SpotifyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97BD5F22BB4B7E5008172D9 /* SpotifyService.swift */; };
 		E97BD5F62BB4CF62008172D9 /* SpotifyiOS in Frameworks */ = {isa = PBXBuildFile; productRef = E97BD5F52BB4CF62008172D9 /* SpotifyiOS */; };
 		E97BD5F92BB4D6FE008172D9 /* SpotifyConnectionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97BD5F82BB4D6FE008172D9 /* SpotifyConnectionSheet.swift */; };
+		E9A83CD52BC1E80B007D6202 /* SharedQProtocol in Frameworks */ = {isa = PBXBuildFile; productRef = E9A83CD42BC1E80B007D6202 /* SharedQProtocol */; };
 		E9AA15E52BB0A32000F1CDBA /* MusadoraKit in Frameworks */ = {isa = PBXBuildFile; productRef = E9AA15E42BB0A32000F1CDBA /* MusadoraKit */; };
 		E9AA15E72BB0A45F00F1CDBA /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = E9AA15E62BB0A45F00F1CDBA /* FirebaseStorage */; };
 		E9AA15E92BB0A81000F1CDBA /* GroupCreatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AA15E82BB0A81000F1CDBA /* GroupCreatedView.swift */; };
@@ -90,6 +91,7 @@
 				E93B6D362BB3D4C000CE1DD3 /* SpotifyAPI in Frameworks */,
 				E9AA15E52BB0A32000F1CDBA /* MusadoraKit in Frameworks */,
 				E9B0B7532BC1B7DF00CD08F4 /* SharedQSync in Frameworks */,
+				E9A83CD52BC1E80B007D6202 /* SharedQProtocol in Frameworks */,
 				E9AA15E72BB0A45F00F1CDBA /* FirebaseStorage in Frameworks */,
 				E9B1C1AA2BB20B910024CBD7 /* SwiftUIShakeGesture in Frameworks */,
 				E94E4CB62BAFE360002E1092 /* FirebaseAuth in Frameworks */,
@@ -232,6 +234,7 @@
 				E93B6D352BB3D4C000CE1DD3 /* SpotifyAPI */,
 				E97BD5F52BB4CF62008172D9 /* SpotifyiOS */,
 				E9B0B7522BC1B7DF00CD08F4 /* SharedQSync */,
+				E9A83CD42BC1E80B007D6202 /* SharedQProtocol */,
 			);
 			productName = SharedQueue;
 			productReference = E94E4C8F2BAFE17F002E1092 /* SharedQueue.app */;
@@ -272,6 +275,7 @@
 				E93B6D342BB3D4C000CE1DD3 /* XCRemoteSwiftPackageReference "SpotifyAPI" */,
 				E97BD5F42BB4CF62008172D9 /* XCRemoteSwiftPackageReference "ios-sdk" */,
 				E9B0B7512BC1B7DF00CD08F4 /* XCRemoteSwiftPackageReference "SharedQSync" */,
+				E9A83CD32BC1E80B007D6202 /* XCRemoteSwiftPackageReference "sharedqprotocol" */,
 			);
 			productRefGroup = E94E4C902BAFE17F002E1092 /* Products */;
 			projectDirPath = "";
@@ -590,6 +594,14 @@
 				kind = branch;
 			};
 		};
+		E9A83CD32BC1E80B007D6202 /* XCRemoteSwiftPackageReference "sharedqprotocol" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/paytontech/sharedqprotocol";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		E9AA15E32BB0A32000F1CDBA /* XCRemoteSwiftPackageReference "MusadoraKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rryam/MusadoraKit";
@@ -662,6 +674,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E97BD5F42BB4CF62008172D9 /* XCRemoteSwiftPackageReference "ios-sdk" */;
 			productName = SpotifyiOS;
+		};
+		E9A83CD42BC1E80B007D6202 /* SharedQProtocol */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E9A83CD32BC1E80B007D6202 /* XCRemoteSwiftPackageReference "sharedqprotocol" */;
+			productName = SharedQProtocol;
 		};
 		E9AA15E42BB0A32000F1CDBA /* MusadoraKit */ = {
 			isa = XCSwiftPackageProductDependency;

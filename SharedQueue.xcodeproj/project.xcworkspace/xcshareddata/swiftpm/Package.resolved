@@ -1,5 +1,5 @@
 {
-  "originHash" : "beabf3b0a133f8e5fea269b061f91ffb224b1db5d81070e95d16aad2ebfaa356",
+  "originHash" : "5e3b95f8fc44eef113fdb4847e737dd01d8b3a211796b65c3c3e8cecb12638ed",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -182,12 +182,75 @@
       }
     },
     {
+      "identity" : "sharedqprotocol",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/paytontech/sharedqprotocol",
+      "state" : {
+        "branch" : "main",
+        "revision" : "c7ae3a82f0e10cb71b99fbac28259eeb8d885214"
+      }
+    },
+    {
       "identity" : "sharedqsync",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/paytontech/SharedQSync",
       "state" : {
         "branch" : "main",
-        "revision" : "47daad2e435fd7ddb9a37882606616dcf23800eb"
+        "revision" : "d32d6b259e21ea3181524f3db11848ea6da932b7"
+      }
+    },
+    {
+      "identity" : "skip",
+      "kind" : "remoteSourceControl",
+      "location" : "https://source.skip.tools/skip.git",
+      "state" : {
+        "revision" : "1c17779236b1d365082d9b4d4672b0e8a799dfaa",
+        "version" : "0.8.29"
+      }
+    },
+    {
+      "identity" : "skip-firebase",
+      "kind" : "remoteSourceControl",
+      "location" : "https://source.skip.tools/skip-firebase.git",
+      "state" : {
+        "revision" : "edcb4c67bf798c71ae7f28556747760e8ec6ecd6",
+        "version" : "0.1.0"
+      }
+    },
+    {
+      "identity" : "skip-foundation",
+      "kind" : "remoteSourceControl",
+      "location" : "https://source.skip.tools/skip-foundation.git",
+      "state" : {
+        "revision" : "6e1e70d217d344f18dc6173ff58ad8ce928f9343",
+        "version" : "0.5.15"
+      }
+    },
+    {
+      "identity" : "skip-lib",
+      "kind" : "remoteSourceControl",
+      "location" : "https://source.skip.tools/skip-lib.git",
+      "state" : {
+        "revision" : "2c269fdf69c9372efeaf93abd5e94f03b4ac83c2",
+        "version" : "0.7.8"
+      }
+    },
+    {
+      "identity" : "skip-model",
+      "kind" : "remoteSourceControl",
+      "location" : "https://source.skip.tools/skip-model.git",
+      "state" : {
+        "revision" : "5f61035fe46b10d4485ff6c72eea8932f9b585f8",
+        "version" : "0.5.4"
+      }
+    },
+    {
+      "identity" : "skip-unit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://source.skip.tools/skip-unit.git",
+      "state" : {
+        "revision" : "61d6e0ed30b3f98293c6a8dd94ed1aa08152c050",
+        "version" : "0.6.5"
       }
     },
     {

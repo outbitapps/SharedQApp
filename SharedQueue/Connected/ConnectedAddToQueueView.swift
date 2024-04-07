@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SharedQProtocol
 
 struct ConnectedAddToQueueView: View {
     @State var searchQuery = ""
@@ -57,7 +58,7 @@ struct ConnectedAddToQueueView: View {
     @ViewBuilder func songCell(_ result: SQSong) -> some View {
         Button(action: {
             Task {
-                await FIRManager.shared.addToQueue(song: result)
+                try? await FIRManager.shared.syncManager.addToQueue(song: result, user: FIRManager.shared.currentUser!)
                 await UINotificationFeedbackGenerator().notificationOccurred(.success)
                 dismiss()
             }

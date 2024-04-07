@@ -5,11 +5,11 @@
 //  Created by Payton Curry on 3/24/24.
 //
 
+import SharedQProtocol
 import SwiftUI
 
 struct ConfirmJoinView: View {
     var group: SQGroup
-    @EnvironmentObject var firManager: FIRManager
     @State var backgroundColor: Color = Color.secondary
     @State var bottomColor: Color = Color.secondary
     @Environment(\.dismiss) var dismiss
@@ -38,7 +38,7 @@ struct ConfirmJoinView: View {
                     HStack {
                         Button(action: {
                             Task {
-                                await firManager.joinGroup(group)
+                                FIRManager.shared.syncManager.connectToGroup(group: group, user: FIRManager.shared.currentUser!)
                             }
                         }, label: {
                             ZStack {
@@ -58,7 +58,6 @@ struct ConfirmJoinView: View {
                                 Text("View Queue").foregroundStyle(bottomColor).font(.title3).bold()
                             }
                         }).frame(height: 50).padding(5)
-                        
                     }
                     Button(action: {
                         dismiss()
@@ -73,8 +72,7 @@ struct ConfirmJoinView: View {
                 }
 
             }.padding().foregroundStyle(bottomColor.isDark ? .white : .black)
-        }.onAppear
-        {
+        }.onAppear {
             if let currentlyPlaying = group.currentlyPlaying {
                 backgroundColor = Color.white.fromHex(currentlyPlaying.colors[1]) ?? Color.secondary
                 bottomColor = Color.white.fromHex(currentlyPlaying.colors[0]) ?? Color.secondary

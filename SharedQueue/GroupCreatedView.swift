@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SharedQProtocol
 
 struct GroupCreatedView: View {
     var group: SQGroup
