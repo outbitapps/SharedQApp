@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		E9057BC32BB10CED00B763BA /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = E9057BC22BB10CED00B763BA /* Starscream */; };
 		E9057BC52BB1155F00B763BA /* ConnectedQueueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9057BC42BB1155F00B763BA /* ConnectedQueueView.swift */; };
+		E9318DF52BC366A000FDBD6A /* ConnectedAddToQueueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9318DF02BC366A000FDBD6A /* ConnectedAddToQueueView.swift */; };
+		E9318DF62BC366A000FDBD6A /* ConnectedAdminSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9318DF12BC366A000FDBD6A /* ConnectedAdminSettings.swift */; };
+		E9318DF72BC366A000FDBD6A /* ConnectedQueueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9318DF22BC366A000FDBD6A /* ConnectedQueueView.swift */; };
+		E9318DF82BC366A000FDBD6A /* GroupConnectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9318DF32BC366A000FDBD6A /* GroupConnectedView.swift */; };
 		E931DC472BB0846C00DFDD18 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = E931DC462BB0846C00DFDD18 /* GoogleSignIn */; };
 		E931DC492BB0846C00DFDD18 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E931DC482BB0846C00DFDD18 /* GoogleSignInSwift */; };
 		E931DC532BB08B6000DFDD18 /* FIRManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E931DC522BB08B6000DFDD18 /* FIRManager.swift */; };
@@ -17,6 +21,7 @@
 		E93B6D332BB3D47100CE1DD3 /* SpotifyAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93B6D322BB3D47100CE1DD3 /* SpotifyAuthService.swift */; };
 		E93B6D362BB3D4C000CE1DD3 /* SpotifyAPI in Frameworks */ = {isa = PBXBuildFile; productRef = E93B6D352BB3D4C000CE1DD3 /* SpotifyAPI */; };
 		E93B6D382BB3D57A00CE1DD3 /* Logtool.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93B6D372BB3D57A00CE1DD3 /* Logtool.swift */; };
+		E94AB8F52BC3772B0082E2A8 /* GroupConnectedFullscreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94AB8F42BC3772B0082E2A8 /* GroupConnectedFullscreenView.swift */; };
 		E94E4C932BAFE17F002E1092 /* SharedQueueApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94E4C922BAFE17F002E1092 /* SharedQueueApp.swift */; };
 		E94E4C952BAFE17F002E1092 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94E4C942BAFE17F002E1092 /* ContentView.swift */; };
 		E94E4C972BAFE180002E1092 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E94E4C962BAFE180002E1092 /* Assets.xcassets */; };
@@ -31,16 +36,37 @@
 		E94E4CBE2BAFE7FF002E1092 /* OnboardingMusicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94E4CBD2BAFE7FF002E1092 /* OnboardingMusicService.swift */; };
 		E94E4CC02BAFEA30002E1092 /* OnboardingFinal.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94E4CBF2BAFEA30002E1092 /* OnboardingFinal.swift */; };
 		E955AAFE2BB1258000241CBE /* GroupConnectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E955AAFD2BB1258000241CBE /* GroupConnectedView.swift */; };
+		E95B93232BC3884C0004DF81 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E95B93222BC3884C0004DF81 /* GoogleService-Info.plist */; };
 		E97BD5F32BB4B7E5008172D9 /* SpotifyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97BD5F22BB4B7E5008172D9 /* SpotifyService.swift */; };
 		E97BD5F62BB4CF62008172D9 /* SpotifyiOS in Frameworks */ = {isa = PBXBuildFile; productRef = E97BD5F52BB4CF62008172D9 /* SpotifyiOS */; };
 		E97BD5F92BB4D6FE008172D9 /* SpotifyConnectionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97BD5F82BB4D6FE008172D9 /* SpotifyConnectionSheet.swift */; };
 		E9A83CD52BC1E80B007D6202 /* SharedQProtocol in Frameworks */ = {isa = PBXBuildFile; productRef = E9A83CD42BC1E80B007D6202 /* SharedQProtocol */; };
+		E9A9D4C12BC33BCD00DF05EB /* MacApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A9D4C02BC33BCD00DF05EB /* MacApp.swift */; };
+		E9A9D4C32BC33BCD00DF05EB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A9D4C22BC33BCD00DF05EB /* ContentView.swift */; };
+		E9A9D4C52BC33BCE00DF05EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9A9D4C42BC33BCE00DF05EB /* Assets.xcassets */; };
+		E9A9D4C82BC33BCE00DF05EB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9A9D4C72BC33BCE00DF05EB /* Preview Assets.xcassets */; };
+		E9A9D4CD2BC33BED00DF05EB /* FIRManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E931DC522BB08B6000DFDD18 /* FIRManager.swift */; };
+		E9A9D4CF2BC33C0800DF05EB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E9A9D4CE2BC33C0800DF05EB /* FirebaseAuth */; };
+		E9A9D4D12BC33C0E00DF05EB /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = E9A9D4D02BC33C0E00DF05EB /* GoogleSignIn */; };
+		E9A9D4D32BC33C1200DF05EB /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E9A9D4D22BC33C1200DF05EB /* GoogleSignInSwift */; };
+		E9A9D4D52BC33C1600DF05EB /* MusadoraKit in Frameworks */ = {isa = PBXBuildFile; productRef = E9A9D4D42BC33C1600DF05EB /* MusadoraKit */; };
+		E9A9D4D92BC33C2800DF05EB /* SharedQSync in Frameworks */ = {isa = PBXBuildFile; productRef = E9A9D4D82BC33C2800DF05EB /* SharedQSync */; };
+		E9A9D4DB2BC33C2800DF05EB /* SharedQProtocol in Frameworks */ = {isa = PBXBuildFile; productRef = E9A9D4DA2BC33C2800DF05EB /* SharedQProtocol */; };
+		E9A9D4DC2BC33C7300DF05EB /* AppleMusicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E931DC562BB0A26600DFDD18 /* AppleMusicService.swift */; };
+		E9A9D4DD2BC33C8500DF05EB /* MusicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E931DC542BB0A24300DFDD18 /* MusicService.swift */; };
+		E9A9D4E02BC33D0900DF05EB /* OnboardingAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A9D4DF2BC33D0900DF05EB /* OnboardingAuth.swift */; };
+		E9A9D4EA2BC3486F00DF05EB /* FluidGradient in Frameworks */ = {isa = PBXBuildFile; productRef = E9A9D4E92BC3486F00DF05EB /* FluidGradient */; };
+		E9A9D4EE2BC34B2A00DF05EB /* FluidGradient in Frameworks */ = {isa = PBXBuildFile; productRef = E9A9D4ED2BC34B2A00DF05EB /* FluidGradient */; };
+		E9A9D4EF2BC34C9700DF05EB /* FIRSignInWithAppleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94E4CA52BAFE30D002E1092 /* FIRSignInWithAppleButton.swift */; };
 		E9AA15E52BB0A32000F1CDBA /* MusadoraKit in Frameworks */ = {isa = PBXBuildFile; productRef = E9AA15E42BB0A32000F1CDBA /* MusadoraKit */; };
 		E9AA15E72BB0A45F00F1CDBA /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = E9AA15E62BB0A45F00F1CDBA /* FirebaseStorage */; };
 		E9AA15E92BB0A81000F1CDBA /* GroupCreatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AA15E82BB0A81000F1CDBA /* GroupCreatedView.swift */; };
 		E9AA16052BB0B20F00F1CDBA /* SwiftVibrant in Frameworks */ = {isa = PBXBuildFile; productRef = E9AA16042BB0B20F00F1CDBA /* SwiftVibrant */; };
 		E9B0B7532BC1B7DF00CD08F4 /* SharedQSync in Frameworks */ = {isa = PBXBuildFile; productRef = E9B0B7522BC1B7DF00CD08F4 /* SharedQSync */; };
 		E9B1C1AA2BB20B910024CBD7 /* SwiftUIShakeGesture in Frameworks */ = {isa = PBXBuildFile; productRef = E9B1C1A92BB20B910024CBD7 /* SwiftUIShakeGesture */; };
+		E9B913A62BC35C0F00D5CC36 /* OnboardingMusicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B913A52BC35C0F00D5CC36 /* OnboardingMusicService.swift */; };
+		E9B913A82BC35E1300D5CC36 /* OnboardingFinal.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B913A72BC35E1300D5CC36 /* OnboardingFinal.swift */; };
+		E9B913AA2BC3625D00D5CC36 /* ConfirmJoinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B913A92BC3625D00D5CC36 /* ConfirmJoinView.swift */; };
 		E9BEEA052BB22136001BCD2A /* ConnectedAdminSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BEEA042BB22136001BCD2A /* ConnectedAdminSettings.swift */; };
 		E9D2550D2BB0BD7200820873 /* ConfirmJoinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D2550C2BB0BD7200820873 /* ConfirmJoinView.swift */; };
 		E9D255102BB0C00100820873 /* PreviewQueueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D2550F2BB0C00100820873 /* PreviewQueueView.swift */; };
@@ -51,11 +77,16 @@
 /* Begin PBXFileReference section */
 		E9057BBD2BB0F02E00B763BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		E9057BC42BB1155F00B763BA /* ConnectedQueueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectedQueueView.swift; sourceTree = "<group>"; };
+		E9318DF02BC366A000FDBD6A /* ConnectedAddToQueueView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectedAddToQueueView.swift; sourceTree = "<group>"; };
+		E9318DF12BC366A000FDBD6A /* ConnectedAdminSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectedAdminSettings.swift; sourceTree = "<group>"; };
+		E9318DF22BC366A000FDBD6A /* ConnectedQueueView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectedQueueView.swift; sourceTree = "<group>"; };
+		E9318DF32BC366A000FDBD6A /* GroupConnectedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupConnectedView.swift; sourceTree = "<group>"; };
 		E931DC522BB08B6000DFDD18 /* FIRManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIRManager.swift; sourceTree = "<group>"; };
 		E931DC542BB0A24300DFDD18 /* MusicService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicService.swift; sourceTree = "<group>"; };
 		E931DC562BB0A26600DFDD18 /* AppleMusicService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMusicService.swift; sourceTree = "<group>"; };
 		E93B6D322BB3D47100CE1DD3 /* SpotifyAuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyAuthService.swift; sourceTree = "<group>"; };
 		E93B6D372BB3D57A00CE1DD3 /* Logtool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logtool.swift; sourceTree = "<group>"; };
+		E94AB8F42BC3772B0082E2A8 /* GroupConnectedFullscreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupConnectedFullscreenView.swift; sourceTree = "<group>"; };
 		E94E4C8F2BAFE17F002E1092 /* SharedQueue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SharedQueue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E94E4C922BAFE17F002E1092 /* SharedQueueApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedQueueApp.swift; sourceTree = "<group>"; };
 		E94E4C942BAFE17F002E1092 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -71,10 +102,22 @@
 		E94E4CBD2BAFE7FF002E1092 /* OnboardingMusicService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingMusicService.swift; sourceTree = "<group>"; };
 		E94E4CBF2BAFEA30002E1092 /* OnboardingFinal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFinal.swift; sourceTree = "<group>"; };
 		E955AAFD2BB1258000241CBE /* GroupConnectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupConnectedView.swift; sourceTree = "<group>"; };
+		E95B93222BC3884C0004DF81 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E97BD5F22BB4B7E5008172D9 /* SpotifyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyService.swift; sourceTree = "<group>"; };
 		E97BD5F72BB4CFF1008172D9 /* SharedQueue-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SharedQueue-Bridging-Header.h"; sourceTree = "<group>"; };
 		E97BD5F82BB4D6FE008172D9 /* SpotifyConnectionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyConnectionSheet.swift; sourceTree = "<group>"; };
+		E9A9D4BE2BC33BCD00DF05EB /* SharedQ for Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SharedQ for Mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9A9D4C02BC33BCD00DF05EB /* MacApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacApp.swift; sourceTree = "<group>"; };
+		E9A9D4C22BC33BCD00DF05EB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		E9A9D4C42BC33BCE00DF05EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E9A9D4C72BC33BCE00DF05EB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		E9A9D4C92BC33BCE00DF05EB /* Mac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mac.entitlements; sourceTree = "<group>"; };
+		E9A9D4DF2BC33D0900DF05EB /* OnboardingAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingAuth.swift; sourceTree = "<group>"; };
+		E9A9D4F02BC34CD900DF05EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		E9AA15E82BB0A81000F1CDBA /* GroupCreatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCreatedView.swift; sourceTree = "<group>"; };
+		E9B913A52BC35C0F00D5CC36 /* OnboardingMusicService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingMusicService.swift; sourceTree = "<group>"; };
+		E9B913A72BC35E1300D5CC36 /* OnboardingFinal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFinal.swift; sourceTree = "<group>"; };
+		E9B913A92BC3625D00D5CC36 /* ConfirmJoinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmJoinView.swift; sourceTree = "<group>"; };
 		E9BEEA042BB22136001BCD2A /* ConnectedAdminSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectedAdminSettings.swift; sourceTree = "<group>"; };
 		E9D2550C2BB0BD7200820873 /* ConfirmJoinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmJoinView.swift; sourceTree = "<group>"; };
 		E9D2550F2BB0C00100820873 /* PreviewQueueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewQueueView.swift; sourceTree = "<group>"; };
@@ -89,6 +132,7 @@
 				E931DC492BB0846C00DFDD18 /* GoogleSignInSwift in Frameworks */,
 				E9D255132BB0CBB900820873 /* Glur in Frameworks */,
 				E93B6D362BB3D4C000CE1DD3 /* SpotifyAPI in Frameworks */,
+				E9A9D4EE2BC34B2A00DF05EB /* FluidGradient in Frameworks */,
 				E9AA15E52BB0A32000F1CDBA /* MusadoraKit in Frameworks */,
 				E9B0B7532BC1B7DF00CD08F4 /* SharedQSync in Frameworks */,
 				E9A83CD52BC1E80B007D6202 /* SharedQProtocol in Frameworks */,
@@ -102,14 +146,41 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E9A9D4BB2BC33BCD00DF05EB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9A9D4D32BC33C1200DF05EB /* GoogleSignInSwift in Frameworks */,
+				E9A9D4CF2BC33C0800DF05EB /* FirebaseAuth in Frameworks */,
+				E9A9D4D12BC33C0E00DF05EB /* GoogleSignIn in Frameworks */,
+				E9A9D4EA2BC3486F00DF05EB /* FluidGradient in Frameworks */,
+				E9A9D4DB2BC33C2800DF05EB /* SharedQProtocol in Frameworks */,
+				E9A9D4D92BC33C2800DF05EB /* SharedQSync in Frameworks */,
+				E9A9D4D52BC33C1600DF05EB /* MusadoraKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E9318DF42BC366A000FDBD6A /* Connected */ = {
+			isa = PBXGroup;
+			children = (
+				E9318DF02BC366A000FDBD6A /* ConnectedAddToQueueView.swift */,
+				E9318DF12BC366A000FDBD6A /* ConnectedAdminSettings.swift */,
+				E9318DF22BC366A000FDBD6A /* ConnectedQueueView.swift */,
+				E9318DF32BC366A000FDBD6A /* GroupConnectedView.swift */,
+				E94AB8F42BC3772B0082E2A8 /* GroupConnectedFullscreenView.swift */,
+			);
+			path = Connected;
+			sourceTree = "<group>";
+		};
 		E94E4C862BAFE17F002E1092 = {
 			isa = PBXGroup;
 			children = (
 				E97BD5F72BB4CFF1008172D9 /* SharedQueue-Bridging-Header.h */,
 				E94E4C912BAFE17F002E1092 /* SharedQueue */,
+				E9A9D4BF2BC33BCD00DF05EB /* Mac */,
 				E94E4C902BAFE17F002E1092 /* Products */,
 				E94E4CB42BAFE360002E1092 /* Frameworks */,
 			);
@@ -119,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				E94E4C8F2BAFE17F002E1092 /* SharedQueue.app */,
+				E9A9D4BE2BC33BCD00DF05EB /* SharedQ for Mac.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -129,8 +201,8 @@
 				E9057BBD2BB0F02E00B763BA /* Info.plist */,
 				E94E4CBA2BAFE63F002E1092 /* Components */,
 				E94E4CB72BAFE3AA002E1092 /* SharedQueue.entitlements */,
-				E94E4CA72BAFE331002E1092 /* GoogleService-Info.plist */,
 				E94E4C922BAFE17F002E1092 /* SharedQueueApp.swift */,
+				E94E4CA72BAFE331002E1092 /* GoogleService-Info.plist */,
 				E94E4C942BAFE17F002E1092 /* ContentView.swift */,
 				E9D2550E2BB0BFEB00820873 /* Preview */,
 				E9AA15E82BB0A81000F1CDBA /* GroupCreatedView.swift */,
@@ -196,6 +268,41 @@
 			path = Connected;
 			sourceTree = "<group>";
 		};
+		E9A9D4BF2BC33BCD00DF05EB /* Mac */ = {
+			isa = PBXGroup;
+			children = (
+				E9A9D4F02BC34CD900DF05EB /* Info.plist */,
+				E95B93222BC3884C0004DF81 /* GoogleService-Info.plist */,
+				E9318DF42BC366A000FDBD6A /* Connected */,
+				E9A9D4C02BC33BCD00DF05EB /* MacApp.swift */,
+				E9A9D4C22BC33BCD00DF05EB /* ContentView.swift */,
+				E9B913A92BC3625D00D5CC36 /* ConfirmJoinView.swift */,
+				E9A9D4DE2BC33D0100DF05EB /* Onboarding */,
+				E9A9D4C42BC33BCE00DF05EB /* Assets.xcassets */,
+				E9A9D4C92BC33BCE00DF05EB /* Mac.entitlements */,
+				E9A9D4C62BC33BCE00DF05EB /* Preview Content */,
+			);
+			path = Mac;
+			sourceTree = "<group>";
+		};
+		E9A9D4C62BC33BCE00DF05EB /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				E9A9D4C72BC33BCE00DF05EB /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E9A9D4DE2BC33D0100DF05EB /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				E9A9D4DF2BC33D0900DF05EB /* OnboardingAuth.swift */,
+				E9B913A52BC35C0F00D5CC36 /* OnboardingMusicService.swift */,
+				E9B913A72BC35E1300D5CC36 /* OnboardingFinal.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		E9D2550E2BB0BFEB00820873 /* Preview */ = {
 			isa = PBXGroup;
 			children = (
@@ -235,9 +342,36 @@
 				E97BD5F52BB4CF62008172D9 /* SpotifyiOS */,
 				E9B0B7522BC1B7DF00CD08F4 /* SharedQSync */,
 				E9A83CD42BC1E80B007D6202 /* SharedQProtocol */,
+				E9A9D4ED2BC34B2A00DF05EB /* FluidGradient */,
 			);
 			productName = SharedQueue;
 			productReference = E94E4C8F2BAFE17F002E1092 /* SharedQueue.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E9A9D4BD2BC33BCD00DF05EB /* SharedQ for Mac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E9A9D4CC2BC33BCE00DF05EB /* Build configuration list for PBXNativeTarget "SharedQ for Mac" */;
+			buildPhases = (
+				E9A9D4BA2BC33BCD00DF05EB /* Sources */,
+				E9A9D4BB2BC33BCD00DF05EB /* Frameworks */,
+				E9A9D4BC2BC33BCD00DF05EB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SharedQ for Mac";
+			packageProductDependencies = (
+				E9A9D4CE2BC33C0800DF05EB /* FirebaseAuth */,
+				E9A9D4D02BC33C0E00DF05EB /* GoogleSignIn */,
+				E9A9D4D22BC33C1200DF05EB /* GoogleSignInSwift */,
+				E9A9D4D42BC33C1600DF05EB /* MusadoraKit */,
+				E9A9D4D82BC33C2800DF05EB /* SharedQSync */,
+				E9A9D4DA2BC33C2800DF05EB /* SharedQProtocol */,
+				E9A9D4E92BC3486F00DF05EB /* FluidGradient */,
+			);
+			productName = Mac;
+			productReference = E9A9D4BE2BC33BCD00DF05EB /* SharedQ for Mac.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -247,11 +381,14 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1520;
+				LastSwiftUpdateCheck = 1530;
 				LastUpgradeCheck = 1520;
 				TargetAttributes = {
 					E94E4C8E2BAFE17F002E1092 = {
 						CreatedOnToolsVersion = 15.2;
+					};
+					E9A9D4BD2BC33BCD00DF05EB = {
+						CreatedOnToolsVersion = 15.3;
 					};
 				};
 			};
@@ -276,12 +413,14 @@
 				E97BD5F42BB4CF62008172D9 /* XCRemoteSwiftPackageReference "ios-sdk" */,
 				E9B0B7512BC1B7DF00CD08F4 /* XCRemoteSwiftPackageReference "SharedQSync" */,
 				E9A83CD32BC1E80B007D6202 /* XCRemoteSwiftPackageReference "sharedqprotocol" */,
+				E9A9D4E82BC3486F00DF05EB /* XCRemoteSwiftPackageReference "FluidGradient" */,
 			);
 			productRefGroup = E94E4C902BAFE17F002E1092 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				E94E4C8E2BAFE17F002E1092 /* SharedQueue */,
+				E9A9D4BD2BC33BCD00DF05EB /* SharedQ for Mac */,
 			);
 		};
 /* End PBXProject section */
@@ -294,6 +433,16 @@
 				E94E4C9A2BAFE180002E1092 /* Preview Assets.xcassets in Resources */,
 				E94E4CA82BAFE331002E1092 /* GoogleService-Info.plist in Resources */,
 				E94E4C972BAFE180002E1092 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E9A9D4BC2BC33BCD00DF05EB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9A9D4C82BC33BCE00DF05EB /* Preview Assets.xcassets in Resources */,
+				E9A9D4C52BC33BCE00DF05EB /* Assets.xcassets in Resources */,
+				E95B93232BC3884C0004DF81 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,6 +476,28 @@
 				E94E4C952BAFE17F002E1092 /* ContentView.swift in Sources */,
 				E94E4C932BAFE17F002E1092 /* SharedQueueApp.swift in Sources */,
 				E9D2550D2BB0BD7200820873 /* ConfirmJoinView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E9A9D4BA2BC33BCD00DF05EB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9318DF82BC366A000FDBD6A /* GroupConnectedView.swift in Sources */,
+				E9318DF62BC366A000FDBD6A /* ConnectedAdminSettings.swift in Sources */,
+				E9A9D4E02BC33D0900DF05EB /* OnboardingAuth.swift in Sources */,
+				E9318DF72BC366A000FDBD6A /* ConnectedQueueView.swift in Sources */,
+				E9A9D4C32BC33BCD00DF05EB /* ContentView.swift in Sources */,
+				E9A9D4DD2BC33C8500DF05EB /* MusicService.swift in Sources */,
+				E9A9D4EF2BC34C9700DF05EB /* FIRSignInWithAppleButton.swift in Sources */,
+				E9B913A62BC35C0F00D5CC36 /* OnboardingMusicService.swift in Sources */,
+				E94AB8F52BC3772B0082E2A8 /* GroupConnectedFullscreenView.swift in Sources */,
+				E9B913A82BC35E1300D5CC36 /* OnboardingFinal.swift in Sources */,
+				E9318DF52BC366A000FDBD6A /* ConnectedAddToQueueView.swift in Sources */,
+				E9A9D4CD2BC33BED00DF05EB /* FIRManager.swift in Sources */,
+				E9A9D4DC2BC33C7300DF05EB /* AppleMusicService.swift in Sources */,
+				E9A9D4C12BC33BCD00DF05EB /* MacApp.swift in Sources */,
+				E9B913AA2BC3625D00D5CC36 /* ConfirmJoinView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -530,6 +701,72 @@
 			};
 			name = Release;
 		};
+		E9A9D4CA2BC33BCE00DF05EB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Mac/Mac.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Mac/Preview Content\"";
+				DEVELOPMENT_TEAM = BR926NY9FS;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Mac/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SharedQ;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "We use your Media Library to play music from your library, sync your queue with others, and control music playback.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.4;
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.paytondeveloper.SharedQueue;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		E9A9D4CB2BC33BCE00DF05EB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Mac/Mac.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Mac/Preview Content\"";
+				DEVELOPMENT_TEAM = BR926NY9FS;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Mac/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SharedQ;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "We use your Media Library to play music from your library, sync your queue with others, and control music playback.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.4;
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.paytondeveloper.SharedQueue;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -547,6 +784,15 @@
 			buildConfigurations = (
 				E94E4C9E2BAFE180002E1092 /* Debug */,
 				E94E4C9F2BAFE180002E1092 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E9A9D4CC2BC33BCE00DF05EB /* Build configuration list for PBXNativeTarget "SharedQ for Mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E9A9D4CA2BC33BCE00DF05EB /* Debug */,
+				E9A9D4CB2BC33BCE00DF05EB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -600,6 +846,14 @@
 			requirement = {
 				branch = main;
 				kind = branch;
+			};
+		};
+		E9A9D4E82BC3486F00DF05EB /* XCRemoteSwiftPackageReference "FluidGradient" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Cindori/FluidGradient";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
 			};
 		};
 		E9AA15E32BB0A32000F1CDBA /* XCRemoteSwiftPackageReference "MusadoraKit" */ = {
@@ -679,6 +933,46 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E9A83CD32BC1E80B007D6202 /* XCRemoteSwiftPackageReference "sharedqprotocol" */;
 			productName = SharedQProtocol;
+		};
+		E9A9D4CE2BC33C0800DF05EB /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E94E4CA92BAFE340002E1092 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		E9A9D4D02BC33C0E00DF05EB /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E931DC452BB0846C00DFDD18 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		E9A9D4D22BC33C1200DF05EB /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E931DC452BB0846C00DFDD18 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
+		E9A9D4D42BC33C1600DF05EB /* MusadoraKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E9AA15E32BB0A32000F1CDBA /* XCRemoteSwiftPackageReference "MusadoraKit" */;
+			productName = MusadoraKit;
+		};
+		E9A9D4D82BC33C2800DF05EB /* SharedQSync */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E9B0B7512BC1B7DF00CD08F4 /* XCRemoteSwiftPackageReference "SharedQSync" */;
+			productName = SharedQSync;
+		};
+		E9A9D4DA2BC33C2800DF05EB /* SharedQProtocol */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E9A83CD32BC1E80B007D6202 /* XCRemoteSwiftPackageReference "sharedqprotocol" */;
+			productName = SharedQProtocol;
+		};
+		E9A9D4E92BC3486F00DF05EB /* FluidGradient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E9A9D4E82BC3486F00DF05EB /* XCRemoteSwiftPackageReference "FluidGradient" */;
+			productName = FluidGradient;
+		};
+		E9A9D4ED2BC34B2A00DF05EB /* FluidGradient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E9A9D4E82BC3486F00DF05EB /* XCRemoteSwiftPackageReference "FluidGradient" */;
+			productName = FluidGradient;
 		};
 		E9AA15E42BB0A32000F1CDBA /* MusadoraKit */ = {
 			isa = XCSwiftPackageProductDependency;

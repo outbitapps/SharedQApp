@@ -9,7 +9,6 @@ import FirebaseAuth
 import Foundation
 import Network
 import SharedQSync
-import Starscream
 import SharedQProtocol
 
 class FIRManager: ObservableObject {
@@ -67,6 +66,7 @@ class FIRManager: ObservableObject {
                         }
                     }
                 } else {
+                    print(String(data: data, encoding: .utf8))
                     if String(data: data, encoding: .utf8) == "That user could not be found." {
                         UserDefaults.standard.set(false, forKey: "accountCreated")
                         UserDefaults.standard.set(false, forKey: "accountSetup")
@@ -135,6 +135,7 @@ class FIRManager: ObservableObject {
     func addGroup(_ groupID: String, _ groupURLID: String) async -> Bool {
         var userRequest = URLRequest(url: URL(string: "\(baseURL)/add-group/\(groupID)/\(groupURLID)")!)
         print(userRequest.url)
+        await refreshData()
         userRequest.httpMethod = "POST"
         userRequest.httpBody = try! JSONEncoder().encode(AddGroupRequest(myUID: currentUser!.id))
         do {
@@ -161,14 +162,16 @@ extension FIRManager: SharedQSyncDelegate {
         connectedToGroup = false
     }
 
-    func onGroupConnect() {
+    func onGroupConnect(_ group: SQGroup) {
         connectedToGroup = true
+        self.connectedGroup = group
         Task {
             await musicService.playSong(song: connectedGroup!.currentlyPlaying!)
         }
     }
 
     func onGroupUpdate(_ group: SQGroup, _ message: WSMessage) {
+        print("group update")
 //        self.connectedGroup = group
         DispatchQueue.main.async {
             self.objectWillChange.send()
@@ -207,12 +210,15 @@ extension FIRManager: SharedQSyncDelegate {
             await musicService.playSong(song: connectedGroup!.currentlyPlaying!)
             await musicService.playAt(timestamp: connectedGroup!.playbackState!.timestamp)
         }
+        self.connectedGroup!.playbackState?.state = .play
     }
 
     func onPause(_ message: WSMessage) {
+        print("paused at \(message.sentAt)")
         Task {
             await musicService.pauseSong()
         }
+        self.connectedGroup!.playbackState?.state = .pause
     }
 
     func onTimestampUpdate(_ timestamp: TimeInterval, _ message: WSMessage) {

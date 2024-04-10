@@ -7,11 +7,19 @@
 
 import Foundation
 import MusadoraKit
-import FirebaseStorage
 import SwiftUI
+#if os(iOS)
 import SwiftVibrant
+#endif
 import MusicKit
 import SharedQProtocol
+
+#if os(macOS)
+import AppKit
+typealias UIImage = NSImage
+typealias UIColor = NSColor
+#endif
+
 class AppleMusicService: MusicService {
     func registerStateListeners() async {
         DispatchQueue.main.async {
@@ -91,6 +99,7 @@ class AppleMusicService: MusicService {
             let songFromStore = songsFromStore[0]
             let artwork = songFromStore.artwork
             sqSong.albumArt = artwork?.url(width: 512, height: 512)
+            #if os(iOS)
             do {
                 let (data, _) = try await URLSession.shared.data(from: sqSong.albumArt!)
                 print(data)
@@ -106,6 +115,7 @@ class AppleMusicService: MusicService {
             } catch {
                 
             }
+            #endif
         }
         return sqSong
     }

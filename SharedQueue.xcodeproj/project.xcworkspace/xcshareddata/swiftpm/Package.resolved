@@ -1,5 +1,5 @@
 {
-  "originHash" : "5e3b95f8fc44eef113fdb4847e737dd01d8b3a211796b65c3c3e8cecb12638ed",
+  "originHash" : "7e4ec96cf1bbd086d215e26238bc7bc51425edfd99eee8227f00d8349930569c",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -35,6 +35,15 @@
       "state" : {
         "revision" : "888f0b6026e2441a69e3ee2ad5293c7a92031e62",
         "version" : "10.23.1"
+      }
+    },
+    {
+      "identity" : "fluidgradient",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Cindori/FluidGradient",
+      "state" : {
+        "revision" : "9ddda4cf23671ef0228e88681ec6210cb3e0d7f7",
+        "version" : "1.0.0"
       }
     },
     {
@@ -196,7 +205,7 @@
       "location" : "https://github.com/paytontech/SharedQSync",
       "state" : {
         "branch" : "main",
-        "revision" : "d32d6b259e21ea3181524f3db11848ea6da932b7"
+        "revision" : "a900629677abff05ce3127d15cdd63c6fb83e5d6"
       }
     },
     {

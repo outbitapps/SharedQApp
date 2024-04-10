@@ -24,7 +24,7 @@ struct ContentView: View {
         NavigationStack {
             VStack {
                 List {
-                    if firManager.groups.count == firManager.currentUser!.groups.count {
+                    if firManager.groups.count == firManager.currentUser?.groups.count {
                         ForEach(firManager.groups) { group in
                             NavigationLink {
                                 ConfirmJoinView(group: group).navigationBarBackButtonHidden(true)
@@ -58,7 +58,7 @@ struct ContentView: View {
                     }, label: {
                         HStack {
                             Text("Groups").font(.largeTitle).fontWeight(.bold)
-                            if firManager.groups.count != firManager.currentUser!.groups.count {
+                            if firManager.groups.count != firManager.currentUser?.groups.count {
                                 ProgressView()
                             } else {
                                 Image(systemName: "plus").foregroundStyle(.blue)
