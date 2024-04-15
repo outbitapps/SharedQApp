@@ -89,7 +89,7 @@ struct OnboardingAuth: View {
             }, content: {
                 AccountSetupSheet().presentationDetents([.fraction(0.5)]).presentationCornerRadius(50).interactiveDismissDisabled()
             }).sheet(isPresented: $emailAndPasswordSheet, onDismiss: {
-                obPath.path.append("music-service")
+//                obPath.path.append("music-service")
             }, content: {
                 EmailPasswordAuthSheet().presentationDetents([.fraction(0.5)]).presentationCornerRadius(40)
             }).navigationDestination(for: String.self) { path in
@@ -180,7 +180,7 @@ struct EmailPasswordAuthSheet: View {
     var body: some View {
         VStack {
             TextField("Email", text: $email).textFieldStyle(CoolTextfieldStyle()).padding()
-            TextField("Password", text: $password).textFieldStyle(CoolTextfieldStyle()).padding()
+            SecureField("Password", text: $password).textFieldStyle(CoolTextfieldStyle()).padding()
             TextField("username", text: $username).textFieldStyle(CoolTextfieldStyle()).padding()
             GradientButton {
                 Task {
