@@ -7,7 +7,6 @@
 
 import SwiftUI
 import SwiftUIShakeGesture
-import FirebaseAuth
 import SharedQProtocol
 
 struct ContentView: View {
@@ -24,8 +23,8 @@ struct ContentView: View {
         NavigationStack {
             VStack {
                 List {
-                    if firManager.groups.count == firManager.currentUser?.groups.count {
-                        ForEach(firManager.groups) { group in
+                    if let currentUser = firManager.currentUser {
+                        ForEach(currentUser.groups) { group in
                             NavigationLink {
                                 ConfirmJoinView(group: group).navigationBarBackButtonHidden(true)
                             } label: {
@@ -51,38 +50,31 @@ struct ContentView: View {
             }.toolbar(content: {
                 ToolbarItem(placement: .navigation) {
                     Button(action: {
-                        if firManager.groups.count == firManager.currentUser!.groups.count {
+                        if firManager.currentUser != nil {
                             showingCreateView.toggle()
                         }
                     
                     }, label: {
                         HStack {
                             Text("Groups").font(.largeTitle).fontWeight(.bold)
-                            if firManager.groups.count != firManager.currentUser?.groups.count {
-                                ProgressView()
-                            } else {
+                            if firManager.currentUser != nil {
                                 Image(systemName: "plus").foregroundStyle(.blue)
+                            } else {
+                                ProgressView()
                             }
                         }
                     }).buttonStyle(.plain)
                 }
             }).onAppear {
-            
-                if Auth.auth().currentUser == nil && completedOnboarding {
+                if firManager.authToken == nil && completedOnboarding {
                     UserDefaults.standard.set(false, forKey: "accountCreated")
                     UserDefaults.standard.set(false, forKey: "accountSetup")
                     completedOnboarding = false
-                    return
                 }
                 if UserDefaults.standard.bool(forKey: "usesSpotify") {
                     showingSpotifySheet = true
                 }
-                Auth.auth().currentUser?.getIDTokenForcingRefresh(true)  { (idToken, error) in
-                    if let error = error {
-                        try? Auth.auth().signOut()
-                        completedOnboarding = false
-                    }
-                }
+                
             }
         }.sheet(isPresented: $showingCreateView, onDismiss: {
             
@@ -97,8 +89,8 @@ struct ContentView: View {
     //                    queueItems.append(SQQueueItem(song: recent, addedBy: "Payton"))
     //                }
     //                groupBeingCreated?.previewQueue = queueItems
-                    await firManager.updateGroup(groupBeingCreated!)
-                    groupBeingCreated = firManager.groups.first(where: {$0.id == groupBeingCreated!.id})
+                    _ = await firManager.updateGroup(groupBeingCreated!)
+                    groupBeingCreated = firManager.currentUser?.groups.first(where: {$0.id == groupBeingCreated!.id})
                     loading = false
                     showingCreatedView = true
                 }
@@ -158,6 +150,8 @@ struct DevSettings: View {
                 firManager.env = newValue
                 firManager.baseURL = "http://\(firManager.env.rawValue)"
                 firManager.baseWSURL = "ws://\(firManager.env.rawValue)"
+                firManager.syncManager.serverURL = URL(string: firManager.baseURL)!
+                firManager.syncManager.websocketURL = URL(string: firManager.baseWSURL)!
                 print(firManager.baseURL)
                 Task {
                     self.serverVersion = await fetchServerVersion()
@@ -188,7 +182,7 @@ struct HomeGroupCell: View {
         HStack {
             VStack(alignment: .leading) {
                 Text(group.name).font(.title2).fontWeight(.semibold)
-                Text("^[\(group.members.count + 1) Members](inflect:true) ∙ \(group.connectedMembers.count) right now").foregroundStyle(.secondary)
+                Text("^[\(group.members.count) Members](inflect:true) ∙ \(group.connectedMembers.count) right now").foregroundStyle(.secondary)
                 Text("Last used \(lastConnectedString()) ∙ \(group.publicGroup ? "Public Group" : "Private Group")").foregroundStyle(.secondary)
             }
             Spacer()
@@ -287,7 +281,7 @@ struct CreateGroupView: View {
     }
     func createGroup() async {
         if !groupName.isEmpty {
-            let group = SQGroup(id: UUID().uuidString, name: groupName, owner: firManager.currentUser!, defaultPermissions: SQDefaultPermissions(id: UUID().uuidString, membersCanControlPlayback: membersControlPlayback, membersCanAddToQueue: membersAddToQueue), publicGroup: publicGroup, askToJoin: askToJoin, previewQueue: [])
+            let group = SQGroup(id: UUID(), name: groupName, defaultPermissions: SQDefaultPermissions(id: UUID(), membersCanControlPlayback: membersControlPlayback, membersCanAddToQueue: membersAddToQueue), members: [SQGroupMember(id: UUID(), user: firManager.currentUser!, canControlPlayback: true, canAddToQueue: true, isOwner: true)], publicGroup: publicGroup, askToJoin: askToJoin, previewQueue: [])
             if await firManager.createGroup(group) {
                 groupBeingCreated = group
                 dismiss()

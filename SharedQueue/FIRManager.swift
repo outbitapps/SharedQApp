@@ -5,7 +5,6 @@
 //  Created by Payton Curry on 3/24/24.
 //
 
-import FirebaseAuth
 import Foundation
 import Network
 import SharedQSync
@@ -13,12 +12,13 @@ import SharedQProtocol
 
 class FIRManager: ObservableObject {
     @Published var currentUser: SQUser?
-    @Published var groups: [SQGroup] = []
     @Published var connectedGroup: SQGroup?
     @Published var connectedToGroup = false
+    @Published var loaded = false
+    var authToken: String?
     var syncManager: SharedQSyncManager
     var setupQueue = false
-    var env = ServerID.beta
+    var env = ServerID.superDev
     var baseURL: String
     var baseWSURL: String
     static var shared = FIRManager()
@@ -27,43 +27,27 @@ class FIRManager: ObservableObject {
         baseWSURL = "ws://\(env.rawValue)"
         syncManager = SharedQSyncManager(serverURL: URL(string: baseURL)!, websocketURL: URL(string: baseWSURL)!)
         syncManager.delegate = self
-        Auth.auth().addStateDidChangeListener { _, _ in
-            Task {
-                await self.refreshData()
-            }
+        authToken = UserDefaults.standard.string(forKey: "auth_token")
+        Task {
+            await self.refreshData()
         }
     }
 
     func refreshData() async {
         print("refresh")
-        DispatchQueue.main.async {
-            self.groups = []
-        }
-        if Auth.auth().currentUser != nil {
-            var userRequest = URLRequest(url: URL(string: "\(baseURL)/fetch-user")!)
-            userRequest.httpMethod = "POST"
-            userRequest.httpBody = try! JSONEncoder().encode(FetchUserRequest(uid: Auth.auth().currentUser!.uid))
+        if let authToken = authToken {
+            var userRequest = URLRequest(url: URL(string: "\(baseURL)/users/fetch-user")!)
+            userRequest.httpMethod = "GET"
+//            userRequest.httpBody = try! JSONEncoder().encode(FetchUserRequest(uid: Auth.auth().currentUser!.uid))
+            userRequest.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
+            print(userRequest.allHTTPHeaderFields)
             do {
                 let (data, _) = try await URLSession.shared.data(for: userRequest)
                 if let user = try? JSONDecoder().decode(SQUser.self, from: data) {
                     DispatchQueue.main.async {
                         self.currentUser = user
-                        print(user.groups)
-                    }
-                    // TODO: add server endpoint: fetch-groups
-                    for group in user.groups {
-                        print(group)
-                        var groupRequest = URLRequest(url: URL(string: "\(baseURL)/fetch-group")!)
-                        groupRequest.httpMethod = "POST"
-                        groupRequest.httpBody = try! JSONEncoder().encode(FetchGroupRequest(myUID: user.id, groupID: group))
-                        let (groupData, _) = try await URLSession.shared.data(for: groupRequest)
-//                        print(String(data: groupData, encoding: .utf8))
-                        if let group = try? JSONDecoder().decode(SQGroup.self, from: groupData) {
-                            DispatchQueue.main.async {
-                                print(group.name)
-                                self.groups.append(group)
-                            }
-                        }
+                        print(self.currentUser?.username)
+                        self.loaded = true
                     }
                 } else {
                     print(String(data: data, encoding: .utf8))
@@ -78,34 +62,44 @@ class FIRManager: ObservableObject {
             }
         }
     }
+    
 
     func createGroup(_ group: SQGroup) async -> Bool {
-        var userRequest = URLRequest(url: URL(string: "\(baseURL)/create-group")!)
+        var userRequest = URLRequest(url: URL(string: "\(baseURL)/groups/create")!)
         userRequest.httpMethod = "POST"
+        userRequest.setValue("Bearer \(authToken ?? "unauth'd")", forHTTPHeaderField: "Authorization")
+        print(userRequest.allHTTPHeaderFields)
         userRequest.httpBody = try! JSONEncoder().encode(group)
         do {
-            let (data, _) = try await URLSession.shared.data(for: userRequest)
-            if String(data: data, encoding: .utf8) == "Success!" {
-                return true
-            } else {
-                print(String(data: data, encoding: .utf8))
+            let (data, res) = try await URLSession.shared.data(for: userRequest)
+            if let http = res.http {
+                return 200...299 ~= http.statusCode
             }
         } catch {
             print(error)
         }
         return false
     }
-
-    func createUser(_ user: SQUser) async -> Bool {
-        var userRequest = URLRequest(url: URL(string: "\(baseURL)/create-user")!)
+    
+    func signUp(username: String, email: String, password: String) async -> Bool {
+        var userRequest = URLRequest(url: URL(string: "\(baseURL)/users/signup")!)
         userRequest.httpMethod = "POST"
-        userRequest.httpBody = try! JSONEncoder().encode(user)
+        userRequest.httpBody = try? JSONEncoder().encode(UserSignup(email: email, username: username, password: password))
         do {
             let (data, _) = try await URLSession.shared.data(for: userRequest)
-            if String(data: data, encoding: .utf8) == "Success!" || String(data: data, encoding: .utf8) == "User already exists!" {
+//            if String(data: data, encoding: .utf8) == "Success!" || String(data: data, encoding: .utf8) == "User already exists!" {
+//                return true
+//            } else {
+//                print("respose from create: \(String(data: data, encoding: .utf8))")
+//            }
+            if let tokenResponse = try? JSONDecoder().decode(NewSession.self, from: data) {
+                print(tokenResponse.token)
+                UserDefaults.standard.setValue(tokenResponse.token, forKey: "auth_token")
+                DispatchQueue.main.async {
+                    self.currentUser = tokenResponse.user
+                    self.authToken = tokenResponse.token
+                }
                 return true
-            } else {
-                print("respose from create: \(String(data: data, encoding: .utf8))")
             }
         } catch {
             print(error)
@@ -114,17 +108,18 @@ class FIRManager: ObservableObject {
     }
 
     func updateGroup(_ group: SQGroup) async -> Bool {
-        var userRequest = URLRequest(url: URL(string: "\(baseURL)/update-group")!)
-        userRequest.httpMethod = "POST"
-        userRequest.httpBody = try! JSONEncoder().encode(UpdateGroupRequest(myUID: currentUser!.id, group: group))
+        var userRequest = URLRequest(url: URL(string: "\(baseURL)/groups/update")!)
+        userRequest.httpMethod = "PUT"
+        userRequest.httpBody = try! JSONEncoder().encode(group)
+        userRequest.setValue("Bearer \(authToken ?? "unauth'd")", forHTTPHeaderField: "Authorization")
         print("sending \(userRequest.httpBody) to server")
         do {
-            let (data, _) = try await URLSession.shared.data(for: userRequest)
-            if String(data: data, encoding: .utf8) == "Success!" {
-                await refreshData()
-                return true
-            } else {
-                print(String(data: data, encoding: .utf8))
+            let (data, res) = try await URLSession.shared.data(for: userRequest)
+            if let http = res.http {
+                if 200...299 ~= http.statusCode {
+                 await refreshData()
+                    return true
+                }
             }
         } catch {
             print(error)
@@ -133,19 +128,20 @@ class FIRManager: ObservableObject {
     }
 
     func addGroup(_ groupID: String, _ groupURLID: String) async -> Bool {
-        var userRequest = URLRequest(url: URL(string: "\(baseURL)/add-group/\(groupID)/\(groupURLID)")!)
+        var userRequest = URLRequest(url: URL(string: "\(baseURL)/groups/add-group/\(groupID)/\(groupURLID)")!)
         print(userRequest.url)
-        await refreshData()
-        userRequest.httpMethod = "POST"
+        if currentUser == nil {
+            await refreshData()
+        }
+        userRequest.setValue("Bearer \(authToken ?? "unauth'd")", forHTTPHeaderField: "Authorization")
+        userRequest.httpMethod = "PUT"
         userRequest.httpBody = try! JSONEncoder().encode(AddGroupRequest(myUID: currentUser!.id))
         do {
-            let (data, _) = try await URLSession.shared.data(for: userRequest)
+            let (data, res) = try await URLSession.shared.data(for: userRequest)
             print(String(data: data, encoding: .utf8))
-            if String(data: data, encoding: .utf8) == "Success!" {
+            if let http = res.http {
                 await refreshData()
-                return true
-            } else {
-                print(String(data: data, encoding: .utf8))
+                return 200...299 ~= http.statusCode
             }
         } catch {
             print(error)
@@ -246,20 +242,6 @@ enum ServerID: String {
     case beta = "sq.paytondev.cloud:8080"
 }
 
-struct FetchUserRequest: Codable {
-    var uid: String
-}
-
-struct FetchGroupRequest: Codable {
-    var myUID: String
-    var groupID: String
-}
-
-struct UpdateGroupRequest: Codable {
-    var myUID: String
-    var group: SQGroup
-}
-
 extension Data {
     var bytes: [UInt8] {
         return [UInt8](self)
@@ -272,6 +254,9 @@ extension Array where Element == UInt8 {
     }
 }
 
-public struct AddGroupRequest: Codable {
-    public var myUID: String
+extension URLResponse {
+    /// Returns casted `HTTPURLResponse`
+    var http: HTTPURLResponse? {
+        return self as? HTTPURLResponse
+    }
 }

@@ -22,8 +22,8 @@ struct GroupConnectedView: View {
     var checkPlaybackTimer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
     @ObservedObject var applePlaybackState = ApplicationMusicPlayer.shared.state
     var body: some View {
-        if let group = firManager.connectedGroup, let playbackState = group.playbackState {
-            let myPermissions = group.members.first(where: {$0.user.id == firManager.currentUser!.id}) ?? SQUserPermissions(id: UUID().uuidString, user: firManager.currentUser!, canControlPlayback: false, canAddToQueue: true)
+        if let group = firManager.connectedGroup, let playbackState = group.playbackState, let myPermissions = group.members.first(where: {$0.user.id == firManager.currentUser!.id}) {
+            
             ZStack {
                 if let currentSong = firManager.connectedGroup!.currentlyPlaying {
                     LinearGradient(colors: currentSong.colors.toColor(), startPoint: .topLeading, endPoint: .bottomTrailing).ignoresSafeArea()
@@ -70,7 +70,7 @@ struct GroupConnectedView: View {
                 backgroundColor = Color.white.fromHex(firManager.connectedGroup!.currentlyPlaying!.colors[1]) ?? Color.secondary
                 bottomColor = Color.white.fromHex(firManager.connectedGroup!.currentlyPlaying!.colors[0]) ?? Color.secondary
             }.onAppear {
-                isGroupOwner = firManager.connectedGroup!.owner.id == firManager.currentUser!.id
+                isGroupOwner = myPermissions.isOwner
             }.onReceive(playbackTimer, perform: { _ in
                 if group.playbackState!.state != .pause {
                     playbackTime += 1

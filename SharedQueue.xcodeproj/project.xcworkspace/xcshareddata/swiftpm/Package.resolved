@@ -1,40 +1,13 @@
 {
-  "originHash" : "7e4ec96cf1bbd086d215e26238bc7bc51425edfd99eee8227f00d8349930569c",
+  "originHash" : "d27cb5608434f2a5372e7f0977793d35c62786843b751e44ddb6eab0ab7a7f53",
   "pins" : [
-    {
-      "identity" : "abseil-cpp-binary",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/google/abseil-cpp-binary.git",
-      "state" : {
-        "revision" : "748c7837511d0e6a507737353af268484e1745e2",
-        "version" : "1.2024011601.1"
-      }
-    },
-    {
-      "identity" : "app-check",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/google/app-check.git",
-      "state" : {
-        "revision" : "c218c2054299b15ae577e818bbba16084d3eabe6",
-        "version" : "10.18.2"
-      }
-    },
     {
       "identity" : "appauth-ios",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/openid/AppAuth-iOS.git",
       "state" : {
-        "revision" : "7e2c09cbeb3bb799f26c268dbedb26325ea722a9",
-        "version" : "1.7.3"
-      }
-    },
-    {
-      "identity" : "firebase-ios-sdk",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/firebase/firebase-ios-sdk",
-      "state" : {
-        "revision" : "888f0b6026e2441a69e3ee2ad5293c7a92031e62",
-        "version" : "10.23.1"
+        "revision" : "8c0b028aedf617d6d780d448dc836f7048166d0f",
+        "version" : "1.7.4"
       }
     },
     {
@@ -47,57 +20,12 @@
       }
     },
     {
-      "identity" : "glur",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/joogps/Glur",
-      "state" : {
-        "revision" : "9e00ff79da318f2c78b749b1027e54a9d4de2e33",
-        "version" : "1.0.4"
-      }
-    },
-    {
-      "identity" : "googleappmeasurement",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/google/GoogleAppMeasurement.git",
-      "state" : {
-        "revision" : "c7a5917ebe48d69f421aadf154ef3969c8b7f12d",
-        "version" : "10.23.1"
-      }
-    },
-    {
-      "identity" : "googledatatransport",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/google/GoogleDataTransport.git",
-      "state" : {
-        "revision" : "a637d318ae7ae246b02d7305121275bc75ed5565",
-        "version" : "9.4.0"
-      }
-    },
-    {
       "identity" : "googlesignin-ios",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/GoogleSignIn-iOS",
       "state" : {
         "revision" : "a7965d134c5d3567026c523e0a8a583f73b62b0d",
         "version" : "7.1.0"
-      }
-    },
-    {
-      "identity" : "googleutilities",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/google/GoogleUtilities.git",
-      "state" : {
-        "revision" : "26c898aed8bed13b8a63057ee26500abbbcb8d55",
-        "version" : "7.13.1"
-      }
-    },
-    {
-      "identity" : "grpc-binary",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/google/grpc-binary.git",
-      "state" : {
-        "revision" : "e9fad491d0673bdda7063a0341fb6b47a30c5359",
-        "version" : "1.62.2"
       }
     },
     {
@@ -119,15 +47,6 @@
       }
     },
     {
-      "identity" : "interop-ios-for-google-sdks",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/google/interop-ios-for-google-sdks.git",
-      "state" : {
-        "revision" : "2d12673670417654f08f5f90fdd62926dc3a2648",
-        "version" : "100.0.0"
-      }
-    },
-    {
       "identity" : "ios-sdk",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/spotify/ios-sdk",
@@ -137,30 +56,12 @@
       }
     },
     {
-      "identity" : "leveldb",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/firebase/leveldb.git",
-      "state" : {
-        "revision" : "43aaef65e0c665daadf848761d560e446d350d3d",
-        "version" : "1.22.4"
-      }
-    },
-    {
       "identity" : "musadorakit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rryam/MusadoraKit",
       "state" : {
         "branch" : "main",
-        "revision" : "254f8ce49af0d5a6083ea9df2f6cbd88df2950bf"
-      }
-    },
-    {
-      "identity" : "nanopb",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/firebase/nanopb.git",
-      "state" : {
-        "revision" : "b7e1104502eca3a213b46303391ca4d3bc8ddec1",
-        "version" : "2.30910.0"
+        "revision" : "723129810d6cf4bd1e59ef9715e700db405fad81"
       }
     },
     {
@@ -170,15 +71,6 @@
       "state" : {
         "revision" : "8576f0d579b27020beccbccc3ea6844f3ddfc2c2",
         "version" : "0.14.0"
-      }
-    },
-    {
-      "identity" : "promises",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/google/promises.git",
-      "state" : {
-        "revision" : "540318ecedd63d883069ae7f1ed811a2df00b6ac",
-        "version" : "2.4.0"
       }
     },
     {
@@ -196,7 +88,7 @@
       "location" : "https://github.com/paytontech/sharedqprotocol",
       "state" : {
         "branch" : "main",
-        "revision" : "c7ae3a82f0e10cb71b99fbac28259eeb8d885214"
+        "revision" : "24a1745a99be7332dfa091b3e7b7bff959f9775b"
       }
     },
     {
@@ -205,61 +97,7 @@
       "location" : "https://github.com/paytontech/SharedQSync",
       "state" : {
         "branch" : "main",
-        "revision" : "a900629677abff05ce3127d15cdd63c6fb83e5d6"
-      }
-    },
-    {
-      "identity" : "skip",
-      "kind" : "remoteSourceControl",
-      "location" : "https://source.skip.tools/skip.git",
-      "state" : {
-        "revision" : "1c17779236b1d365082d9b4d4672b0e8a799dfaa",
-        "version" : "0.8.29"
-      }
-    },
-    {
-      "identity" : "skip-firebase",
-      "kind" : "remoteSourceControl",
-      "location" : "https://source.skip.tools/skip-firebase.git",
-      "state" : {
-        "revision" : "edcb4c67bf798c71ae7f28556747760e8ec6ecd6",
-        "version" : "0.1.0"
-      }
-    },
-    {
-      "identity" : "skip-foundation",
-      "kind" : "remoteSourceControl",
-      "location" : "https://source.skip.tools/skip-foundation.git",
-      "state" : {
-        "revision" : "6e1e70d217d344f18dc6173ff58ad8ce928f9343",
-        "version" : "0.5.15"
-      }
-    },
-    {
-      "identity" : "skip-lib",
-      "kind" : "remoteSourceControl",
-      "location" : "https://source.skip.tools/skip-lib.git",
-      "state" : {
-        "revision" : "2c269fdf69c9372efeaf93abd5e94f03b4ac83c2",
-        "version" : "0.7.8"
-      }
-    },
-    {
-      "identity" : "skip-model",
-      "kind" : "remoteSourceControl",
-      "location" : "https://source.skip.tools/skip-model.git",
-      "state" : {
-        "revision" : "5f61035fe46b10d4485ff6c72eea8932f9b585f8",
-        "version" : "0.5.4"
-      }
-    },
-    {
-      "identity" : "skip-unit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://source.skip.tools/skip-unit.git",
-      "state" : {
-        "revision" : "61d6e0ed30b3f98293c6a8dd94ed1aa08152c050",
-        "version" : "0.6.5"
+        "revision" : "168a1a0261f3d5b77aca3cfa7c9fbcca16f248ca"
       }
     },
     {
@@ -269,15 +107,6 @@
       "state" : {
         "revision" : "74c3e42ebd983ecf3ceaef65786c72f971495003",
         "version" : "2.2.4"
-      }
-    },
-    {
-      "identity" : "starscream",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/daltoniam/Starscream",
-      "state" : {
-        "revision" : "c6bfd1af48efcc9a9ad203665db12375ba6b145a",
-        "version" : "4.0.8"
       }
     },
     {
@@ -296,15 +125,6 @@
       "state" : {
         "revision" : "e97a6fcb1ab07462881ac165fdbb37f067e205d5",
         "version" : "1.5.4"
-      }
-    },
-    {
-      "identity" : "swift-protobuf",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-protobuf.git",
-      "state" : {
-        "revision" : "9f0c76544701845ad98716f3f6a774a892152bcb",
-        "version" : "1.26.0"
       }
     },
     {

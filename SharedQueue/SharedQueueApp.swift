@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Firebase
 import GoogleSignIn
 import Combine
 import SpotifyiOS
@@ -19,7 +18,6 @@ struct SharedQueueApp: App {
     @State private var cancellables: Set<AnyCancellable> = []
     
     init() {
-        FirebaseApp.configure()
         firManager = FIRManager.shared
         if UserDefaults.standard.bool(forKey: "usesSpotify") {
             print("uses spotify")

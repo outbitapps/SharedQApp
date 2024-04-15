@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E9057BC32BB10CED00B763BA /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = E9057BC22BB10CED00B763BA /* Starscream */; };
 		E9057BC52BB1155F00B763BA /* ConnectedQueueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9057BC42BB1155F00B763BA /* ConnectedQueueView.swift */; };
 		E9318DF52BC366A000FDBD6A /* ConnectedAddToQueueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9318DF02BC366A000FDBD6A /* ConnectedAddToQueueView.swift */; };
 		E9318DF62BC366A000FDBD6A /* ConnectedAdminSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9318DF12BC366A000FDBD6A /* ConnectedAdminSettings.swift */; };
@@ -29,8 +28,6 @@
 		E94E4CA22BAFE194002E1092 /* OnboardingPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94E4CA12BAFE194002E1092 /* OnboardingPath.swift */; };
 		E94E4CA42BAFE1B4002E1092 /* OnboardingAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94E4CA32BAFE1B4002E1092 /* OnboardingAuth.swift */; };
 		E94E4CA62BAFE30D002E1092 /* FIRSignInWithAppleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94E4CA52BAFE30D002E1092 /* FIRSignInWithAppleButton.swift */; };
-		E94E4CA82BAFE331002E1092 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E94E4CA72BAFE331002E1092 /* GoogleService-Info.plist */; };
-		E94E4CB62BAFE360002E1092 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E94E4CB52BAFE360002E1092 /* FirebaseAuth */; };
 		E94E4CB92BAFE3E3002E1092 /* SignInWithGoogleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94E4CB82BAFE3E3002E1092 /* SignInWithGoogleButton.swift */; };
 		E94E4CBC2BAFE646002E1092 /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94E4CBB2BAFE646002E1092 /* GradientButton.swift */; };
 		E94E4CBE2BAFE7FF002E1092 /* OnboardingMusicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94E4CBD2BAFE7FF002E1092 /* OnboardingMusicService.swift */; };
@@ -46,7 +43,6 @@
 		E9A9D4C52BC33BCE00DF05EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9A9D4C42BC33BCE00DF05EB /* Assets.xcassets */; };
 		E9A9D4C82BC33BCE00DF05EB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9A9D4C72BC33BCE00DF05EB /* Preview Assets.xcassets */; };
 		E9A9D4CD2BC33BED00DF05EB /* FIRManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E931DC522BB08B6000DFDD18 /* FIRManager.swift */; };
-		E9A9D4CF2BC33C0800DF05EB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E9A9D4CE2BC33C0800DF05EB /* FirebaseAuth */; };
 		E9A9D4D12BC33C0E00DF05EB /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = E9A9D4D02BC33C0E00DF05EB /* GoogleSignIn */; };
 		E9A9D4D32BC33C1200DF05EB /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E9A9D4D22BC33C1200DF05EB /* GoogleSignInSwift */; };
 		E9A9D4D52BC33C1600DF05EB /* MusadoraKit in Frameworks */ = {isa = PBXBuildFile; productRef = E9A9D4D42BC33C1600DF05EB /* MusadoraKit */; };
@@ -59,7 +55,6 @@
 		E9A9D4EE2BC34B2A00DF05EB /* FluidGradient in Frameworks */ = {isa = PBXBuildFile; productRef = E9A9D4ED2BC34B2A00DF05EB /* FluidGradient */; };
 		E9A9D4EF2BC34C9700DF05EB /* FIRSignInWithAppleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94E4CA52BAFE30D002E1092 /* FIRSignInWithAppleButton.swift */; };
 		E9AA15E52BB0A32000F1CDBA /* MusadoraKit in Frameworks */ = {isa = PBXBuildFile; productRef = E9AA15E42BB0A32000F1CDBA /* MusadoraKit */; };
-		E9AA15E72BB0A45F00F1CDBA /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = E9AA15E62BB0A45F00F1CDBA /* FirebaseStorage */; };
 		E9AA15E92BB0A81000F1CDBA /* GroupCreatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AA15E82BB0A81000F1CDBA /* GroupCreatedView.swift */; };
 		E9AA16052BB0B20F00F1CDBA /* SwiftVibrant in Frameworks */ = {isa = PBXBuildFile; productRef = E9AA16042BB0B20F00F1CDBA /* SwiftVibrant */; };
 		E9B0B7532BC1B7DF00CD08F4 /* SharedQSync in Frameworks */ = {isa = PBXBuildFile; productRef = E9B0B7522BC1B7DF00CD08F4 /* SharedQSync */; };
@@ -70,7 +65,6 @@
 		E9BEEA052BB22136001BCD2A /* ConnectedAdminSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BEEA042BB22136001BCD2A /* ConnectedAdminSettings.swift */; };
 		E9D2550D2BB0BD7200820873 /* ConfirmJoinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D2550C2BB0BD7200820873 /* ConfirmJoinView.swift */; };
 		E9D255102BB0C00100820873 /* PreviewQueueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D2550F2BB0C00100820873 /* PreviewQueueView.swift */; };
-		E9D255132BB0CBB900820873 /* Glur in Frameworks */ = {isa = PBXBuildFile; productRef = E9D255122BB0CBB900820873 /* Glur */; };
 		E9E7FE5D2BB502C500D6702F /* ConnectedAddToQueueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E7FE5C2BB502C500D6702F /* ConnectedAddToQueueView.swift */; };
 /* End PBXBuildFile section */
 
@@ -95,7 +89,6 @@
 		E94E4CA12BAFE194002E1092 /* OnboardingPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPath.swift; sourceTree = "<group>"; };
 		E94E4CA32BAFE1B4002E1092 /* OnboardingAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingAuth.swift; sourceTree = "<group>"; };
 		E94E4CA52BAFE30D002E1092 /* FIRSignInWithAppleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIRSignInWithAppleButton.swift; sourceTree = "<group>"; };
-		E94E4CA72BAFE331002E1092 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E94E4CB72BAFE3AA002E1092 /* SharedQueue.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SharedQueue.entitlements; sourceTree = "<group>"; };
 		E94E4CB82BAFE3E3002E1092 /* SignInWithGoogleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithGoogleButton.swift; sourceTree = "<group>"; };
 		E94E4CBB2BAFE646002E1092 /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
@@ -130,18 +123,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				E931DC492BB0846C00DFDD18 /* GoogleSignInSwift in Frameworks */,
-				E9D255132BB0CBB900820873 /* Glur in Frameworks */,
 				E93B6D362BB3D4C000CE1DD3 /* SpotifyAPI in Frameworks */,
 				E9A9D4EE2BC34B2A00DF05EB /* FluidGradient in Frameworks */,
 				E9AA15E52BB0A32000F1CDBA /* MusadoraKit in Frameworks */,
 				E9B0B7532BC1B7DF00CD08F4 /* SharedQSync in Frameworks */,
 				E9A83CD52BC1E80B007D6202 /* SharedQProtocol in Frameworks */,
-				E9AA15E72BB0A45F00F1CDBA /* FirebaseStorage in Frameworks */,
 				E9B1C1AA2BB20B910024CBD7 /* SwiftUIShakeGesture in Frameworks */,
-				E94E4CB62BAFE360002E1092 /* FirebaseAuth in Frameworks */,
 				E931DC472BB0846C00DFDD18 /* GoogleSignIn in Frameworks */,
 				E9AA16052BB0B20F00F1CDBA /* SwiftVibrant in Frameworks */,
-				E9057BC32BB10CED00B763BA /* Starscream in Frameworks */,
 				E97BD5F62BB4CF62008172D9 /* SpotifyiOS in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -151,7 +140,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9A9D4D32BC33C1200DF05EB /* GoogleSignInSwift in Frameworks */,
-				E9A9D4CF2BC33C0800DF05EB /* FirebaseAuth in Frameworks */,
 				E9A9D4D12BC33C0E00DF05EB /* GoogleSignIn in Frameworks */,
 				E9A9D4EA2BC3486F00DF05EB /* FluidGradient in Frameworks */,
 				E9A9D4DB2BC33C2800DF05EB /* SharedQProtocol in Frameworks */,
@@ -202,7 +190,6 @@
 				E94E4CBA2BAFE63F002E1092 /* Components */,
 				E94E4CB72BAFE3AA002E1092 /* SharedQueue.entitlements */,
 				E94E4C922BAFE17F002E1092 /* SharedQueueApp.swift */,
-				E94E4CA72BAFE331002E1092 /* GoogleService-Info.plist */,
 				E94E4C942BAFE17F002E1092 /* ContentView.swift */,
 				E9D2550E2BB0BFEB00820873 /* Preview */,
 				E9AA15E82BB0A81000F1CDBA /* GroupCreatedView.swift */,
@@ -329,14 +316,10 @@
 			);
 			name = SharedQueue;
 			packageProductDependencies = (
-				E94E4CB52BAFE360002E1092 /* FirebaseAuth */,
 				E931DC462BB0846C00DFDD18 /* GoogleSignIn */,
 				E931DC482BB0846C00DFDD18 /* GoogleSignInSwift */,
 				E9AA15E42BB0A32000F1CDBA /* MusadoraKit */,
-				E9AA15E62BB0A45F00F1CDBA /* FirebaseStorage */,
 				E9AA16042BB0B20F00F1CDBA /* SwiftVibrant */,
-				E9D255122BB0CBB900820873 /* Glur */,
-				E9057BC22BB10CED00B763BA /* Starscream */,
 				E9B1C1A92BB20B910024CBD7 /* SwiftUIShakeGesture */,
 				E93B6D352BB3D4C000CE1DD3 /* SpotifyAPI */,
 				E97BD5F52BB4CF62008172D9 /* SpotifyiOS */,
@@ -362,7 +345,6 @@
 			);
 			name = "SharedQ for Mac";
 			packageProductDependencies = (
-				E9A9D4CE2BC33C0800DF05EB /* FirebaseAuth */,
 				E9A9D4D02BC33C0E00DF05EB /* GoogleSignIn */,
 				E9A9D4D22BC33C1200DF05EB /* GoogleSignInSwift */,
 				E9A9D4D42BC33C1600DF05EB /* MusadoraKit */,
@@ -402,12 +384,9 @@
 			);
 			mainGroup = E94E4C862BAFE17F002E1092;
 			packageReferences = (
-				E94E4CA92BAFE340002E1092 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				E931DC452BB0846C00DFDD18 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				E9AA15E32BB0A32000F1CDBA /* XCRemoteSwiftPackageReference "MusadoraKit" */,
 				E9AA16032BB0B20F00F1CDBA /* XCRemoteSwiftPackageReference "swift-vibrant" */,
-				E9D255112BB0CBB900820873 /* XCRemoteSwiftPackageReference "Glur" */,
-				E9057BC12BB10CED00B763BA /* XCRemoteSwiftPackageReference "Starscream" */,
 				E9B1C1A82BB20B910024CBD7 /* XCRemoteSwiftPackageReference "swiftui-shake-gesture" */,
 				E93B6D342BB3D4C000CE1DD3 /* XCRemoteSwiftPackageReference "SpotifyAPI" */,
 				E97BD5F42BB4CF62008172D9 /* XCRemoteSwiftPackageReference "ios-sdk" */,
@@ -431,7 +410,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E94E4C9A2BAFE180002E1092 /* Preview Assets.xcassets in Resources */,
-				E94E4CA82BAFE331002E1092 /* GoogleService-Info.plist in Resources */,
 				E94E4C972BAFE180002E1092 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -800,14 +778,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		E9057BC12BB10CED00B763BA /* XCRemoteSwiftPackageReference "Starscream" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/daltoniam/Starscream";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.8;
-			};
-		};
 		E931DC452BB0846C00DFDD18 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
@@ -822,14 +792,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 2.2.4;
-			};
-		};
-		E94E4CA92BAFE340002E1092 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 10.23.0;
 			};
 		};
 		E97BD5F42BB4CF62008172D9 /* XCRemoteSwiftPackageReference "ios-sdk" */ = {
@@ -888,22 +850,9 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		E9D255112BB0CBB900820873 /* XCRemoteSwiftPackageReference "Glur" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/joogps/Glur";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.4;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E9057BC22BB10CED00B763BA /* Starscream */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E9057BC12BB10CED00B763BA /* XCRemoteSwiftPackageReference "Starscream" */;
-			productName = Starscream;
-		};
 		E931DC462BB0846C00DFDD18 /* GoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E931DC452BB0846C00DFDD18 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
@@ -919,11 +868,6 @@
 			package = E93B6D342BB3D4C000CE1DD3 /* XCRemoteSwiftPackageReference "SpotifyAPI" */;
 			productName = SpotifyAPI;
 		};
-		E94E4CB52BAFE360002E1092 /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E94E4CA92BAFE340002E1092 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
-		};
 		E97BD5F52BB4CF62008172D9 /* SpotifyiOS */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E97BD5F42BB4CF62008172D9 /* XCRemoteSwiftPackageReference "ios-sdk" */;
@@ -933,11 +877,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E9A83CD32BC1E80B007D6202 /* XCRemoteSwiftPackageReference "sharedqprotocol" */;
 			productName = SharedQProtocol;
-		};
-		E9A9D4CE2BC33C0800DF05EB /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E94E4CA92BAFE340002E1092 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
 		};
 		E9A9D4D02BC33C0E00DF05EB /* GoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -979,11 +918,6 @@
 			package = E9AA15E32BB0A32000F1CDBA /* XCRemoteSwiftPackageReference "MusadoraKit" */;
 			productName = MusadoraKit;
 		};
-		E9AA15E62BB0A45F00F1CDBA /* FirebaseStorage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E94E4CA92BAFE340002E1092 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseStorage;
-		};
 		E9AA16042BB0B20F00F1CDBA /* SwiftVibrant */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E9AA16032BB0B20F00F1CDBA /* XCRemoteSwiftPackageReference "swift-vibrant" */;
@@ -998,11 +932,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E9B1C1A82BB20B910024CBD7 /* XCRemoteSwiftPackageReference "swiftui-shake-gesture" */;
 			productName = SwiftUIShakeGesture;
-		};
-		E9D255122BB0CBB900820873 /* Glur */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E9D255112BB0CBB900820873 /* XCRemoteSwiftPackageReference "Glur" */;
-			productName = Glur;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

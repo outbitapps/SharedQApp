@@ -9,8 +9,6 @@ import SwiftUI
 import FluidGradient
 import AuthenticationServices
 import GoogleSignIn
-import FirebaseAuth
-import Firebase
 import AppKit
 import SharedQProtocol
 
@@ -39,12 +37,12 @@ struct OnboardingAuth: View {
                             switch res {
                             case .success(let cred):
                                 //auth
-                                Auth.auth().signIn(with: cred) { res, err in
-                                    if err == nil {
-                                        
-                                        showingSetupSheet = true
-                                    }
-                                }
+//                                Auth.auth().signIn(with: cred) { res, err in
+//                                    if err == nil {
+//                                        
+//                                        showingSetupSheet = true
+//                                    }
+//                                }
                                 break;
                             case .failure(let err):
                                 //fuck

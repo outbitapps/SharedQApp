@@ -64,34 +64,21 @@ struct PreviewQueueView: View {
                             Divider().overlay(bottomColor).padding(5)
                             VStack(alignment: .leading) {
                                 Text("Members (\(group.members.count + 1)):").font(.title2).fontWeight(.semibold)
-                                HStack {
-                                    let user = group.owner
-                                    HStack {
-                                        
-                                        Image(.mediaItemPlaceholder).resizable().frame(width: 50, height: 50).cornerRadius(10.0)
-                                        Text(user.username).fontWeight(.medium).font(.title2)
-                                        Image(systemName: "crown.fill").foregroundStyle(.yellow)
-                                        Spacer()
-                                        if group.connectedMembers.contains(user.id) {
-                                            HStack {
-                                                Circle().frame(width: 20, height: 20)
-                                                Text("Listening")
-                                            }.foregroundStyle(.green)
-                                        }
-                                    }.opacity(group.connectedMembers.contains(user.id) ? 1.0 : 0.5)
-                                }
                                 ForEach(group.members) { user in
                                     HStack {
                                         Image(.mediaItemPlaceholder).resizable().frame(width: 50, height: 50).cornerRadius(10.0)
                                         Text(user.user.username).fontWeight(.medium).font(.title2)
+                                        if user.isOwner {
+                                            Image(systemName: "crown.fill").foregroundStyle(.yellow)
+                                        }
                                         Spacer()
-                                        if group.connectedMembers.contains(user.user.id) {
+                                        if group.connectedMembers.contains(where: {$0.id == user.id}) {
                                             HStack {
                                                 Circle().frame(width: 20, height: 20)
                                                 Text("Listening")
                                             }.foregroundStyle(.green)
                                         }
-                                    }.opacity(group.connectedMembers.contains(user.user.id) ? 1.0 : 0.5)
+                                    }.opacity(group.connectedMembers.contains(where: {$0.id == user.id}) ? 1.0 : 0.5)
                                 }
                             }
                         }
