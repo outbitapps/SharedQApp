@@ -91,7 +91,7 @@ struct OnboardingAuth: View {
             }).sheet(isPresented: $emailAndPasswordSheet, onDismiss: {
 //                obPath.path.append("music-service")
             }, content: {
-                EmailPasswordAuthSheet().presentationDetents([.fraction(0.5)]).presentationCornerRadius(40)
+                EmailPasswordAuthSheet().presentationDetents([.fraction(0.5)]).presentationCornerRadius(40).environmentObject(obPath)
             }).navigationDestination(for: String.self) { path in
                 switch path {
                 case "music-service":
