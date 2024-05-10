@@ -42,7 +42,7 @@ struct ContentView: View {
                     await firManager.refreshData()
                 }
             }, content: {
-                OnboardingAuth()
+                OnboardingContainer()
             }).onChange(of: completedOnboarding, initial: true) { oldValue, newValue in
                 
                 showingOnboarding = !completedOnboarding

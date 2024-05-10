@@ -18,7 +18,7 @@ class FIRManager: ObservableObject {
     var authToken: String?
     var syncManager: SharedQSyncManager
     var setupQueue = false
-    var env = ServerID.beta
+    var env = ServerID.superDev
     var baseURL: String
     var baseWSURL: String
     static var shared = FIRManager()
@@ -81,12 +81,12 @@ class FIRManager: ObservableObject {
         return false
     }
     
-    func signUp(username: String, email: String, password: String) async -> Bool {
+    func signUp(username: String, email: String, password: String) async -> SQSignUpResponse {
         var userRequest = URLRequest(url: URL(string: "\(baseURL)/users/signup")!)
         userRequest.httpMethod = "POST"
         userRequest.httpBody = try? JSONEncoder().encode(UserSignup(email: email, username: username, password: password))
         do {
-            let (data, _) = try await URLSession.shared.data(for: userRequest)
+            let (data, res) = try await URLSession.shared.data(for: userRequest)
 //            if String(data: data, encoding: .utf8) == "Success!" || String(data: data, encoding: .utf8) == "User already exists!" {
 //                return true
 //            } else {
@@ -99,12 +99,67 @@ class FIRManager: ObservableObject {
                     self.currentUser = tokenResponse.user
                     self.authToken = tokenResponse.token
                 }
-                return true
+                return SQSignUpResponse.success
+            } else {
+                if let http = res.http {
+                    print(http.statusCode)
+                    if http.statusCode == 409 {
+                        return .alreadyExists
+                    }
+                }
             }
         } catch {
             print(error)
         }
-        return false
+        return SQSignUpResponse.noConnection
+    }
+    
+    func signIn(email: String, password: String) async -> SQSignUpResponse {
+        var userRequest = URLRequest(url: URL(string: "\(baseURL)/users/login")!)
+        userRequest.httpMethod = "PUT"
+//        userRequest.httpBody = try? JSONEncoder().encode(UserSignup(email: email, username: username, password: password))
+        userRequest.addValue("Basic \("\(email):\(password)".base64Encoded() ?? "asf")", forHTTPHeaderField: "Authorization")
+        do {
+            let (data, res) = try await URLSession.shared.data(for: userRequest)
+//            if String(data: data, encoding: .utf8) == "Success!" || String(data: data, encoding: .utf8) == "User already exists!" {
+//                return true
+//            } else {
+//                print("respose from create: \(String(data: data, encoding: .utf8))")
+//            }
+            if let tokenResponse = try? JSONDecoder().decode(NewSession.self, from: data) {
+                print(tokenResponse.token)
+                UserDefaults.standard.setValue(tokenResponse.token, forKey: "auth_token")
+                DispatchQueue.main.async {
+                    self.currentUser = tokenResponse.user
+                    self.authToken = tokenResponse.token
+                }
+                return SQSignUpResponse.success
+            } else {
+                if let http = res.http {
+                    print(http.statusCode)
+                    if http.statusCode == 401 {
+                        return .incorrectPassword
+                    }
+                }
+            }
+        } catch {
+            print(error)
+        }
+        return SQSignUpResponse.noConnection
+
+    }
+    
+    func sendPasswordResetEmail(email: String) async {
+        do {
+            var request = URLRequest(url: URL(string: "\(baseURL)/users/pwresetemail/\(email)")!)
+            request.httpMethod = "POST"
+            let (data, res) = try await URLSession.shared.data(for: request)
+            if let http = res.http {
+                print(http.statusCode)
+            }
+        } catch {
+            print(error)
+        }
     }
 
     func updateGroup(_ group: SQGroup) async -> Bool {
@@ -259,4 +314,11 @@ extension URLResponse {
     var http: HTTPURLResponse? {
         return self as? HTTPURLResponse
     }
+}
+
+enum SQSignUpResponse: String {
+    case success = "Success!"
+    case alreadyExists = "That account alredy exists! Try logging in instead."
+    case noConnection = "Unable to reach SharedQ. Maybe check your network connection?"
+    case incorrectPassword = "That password wasn't correct. Try again!"
 }

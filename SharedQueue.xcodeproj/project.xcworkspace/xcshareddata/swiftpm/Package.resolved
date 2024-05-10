@@ -1,5 +1,5 @@
 {
-  "originHash" : "d27cb5608434f2a5372e7f0977793d35c62786843b751e44ddb6eab0ab7a7f53",
+  "originHash" : "e873435309bec805d83424e2ff5f8c69f7147493ac2af2cfa14de5f8be03c069",
   "pins" : [
     {
       "identity" : "appauth-ios",
@@ -143,6 +143,15 @@
       "state" : {
         "revision" : "cee0c7d741cda634c43ecb48224fd2b28914426a",
         "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "uipilot",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/canopas/UIPilot.git",
+      "state" : {
+        "revision" : "33b8123dd1e68d861d0cfce27879d5ff1755fd21",
+        "version" : "2.0.2"
       }
     }
   ],

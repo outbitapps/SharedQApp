@@ -10,21 +10,33 @@ import AuthenticationServices
 import GoogleSignIn
 import SharedQProtocol
 import FluidGradient
+import UIPilot
+
+enum OnboardingPages: Equatable {
+    case auth
+    case musicService
+    case finalNotes
+}
+
+
+
+
 struct OnboardingAuth: View {
     @EnvironmentObject var firManager: FIRManager
+    @EnvironmentObject var pilot: UIPilot<OnboardingPages>
     @AppStorage("accountCreated") var accountCreated = false
     @AppStorage("accountSetup") var accountSetup = false
-    @ObservedObject var obPath: OnboardingPath = OnboardingPath()
+    
     @State var showingSetupSheet = false
-    @State var emailAndPasswordSheet = false
+    @State var emailAndPasswordSignupSheet = false
+    @State var emailAndPasswordLoginSheet = false
     var body: some View {
-        NavigationStack(path: $obPath.path) {
             ZStack {
                 FluidGradient(blobs: [.red, .yellow],
                               highlights: [.yellow, .orange], speed: CGFloat(0.3))
                 .background(.quaternary).ignoresSafeArea()
                 VStack {
-                    Text("Shared Queue").font(.title).fontWeight(.semibold)
+                    Text("SharedQ").font(.title).fontWeight(.semibold)
                     Text("create a shared music queue no matter what streaming service you use")
                     Spacer()
 //                    SignInWithAppleFirebaseButton(.continue) { res in
@@ -75,36 +87,34 @@ struct OnboardingAuth: View {
 //
 //                    }.frame(height: 50)
                     Button(action: {
-                        emailAndPasswordSheet = true
+                        emailAndPasswordSignupSheet = true
                     }, label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 15.0).preferredColorScheme(.dark).foregroundStyle(.ultraThinMaterial)
                             Text("\(Image(systemName: "envelope.fill")) Sign Up with Email")
                         }.foregroundStyle(.white)
                     }).frame(height: 50)
+                    Button(action: {
+                        emailAndPasswordLoginSheet = true
+                    }, label: {
+                        Text("Already have an account? **Log in**").foregroundStyle(.white)
+                    }).padding()
                 }.padding()
             }.preferredColorScheme(.dark).sheet(isPresented: $showingSetupSheet, onDismiss: {
                 print("showing musicservice")
-                obPath.path.append("music-service")
+//                obPath.path.append("music-service")
+                pilot.push(.musicService)
             }, content: {
                 AccountSetupSheet().presentationDetents([.fraction(0.5)]).presentationCornerRadius(50).interactiveDismissDisabled()
-            }).sheet(isPresented: $emailAndPasswordSheet, onDismiss: {
+            }).sheet(isPresented: $emailAndPasswordSignupSheet, onDismiss: {
 //                obPath.path.append("music-service")
             }, content: {
-                EmailPasswordAuthSheet().presentationDetents([.fraction(0.5)]).presentationCornerRadius(40).environmentObject(obPath)
-            }).navigationDestination(for: String.self) { path in
-                switch path {
-                case "music-service":
-                    OnboardingMusicService().environmentObject(obPath)
-                case "final-notes":
-                    OnboardingFinal().environmentObject(obPath)
-                default:
-                    Text("FUCK!!")
-                }
-            }
-        }.onAppear {
+                EmailPasswordAuthSheet().presentationDetents([.fraction(0.5)]).presentationCornerRadius(40)
+            }).sheet(isPresented: $emailAndPasswordLoginSheet, content: {
+                EmailPasswordAuthSheet(signUp: false).presentationDetents([.fraction(0.5)]).presentationCornerRadius(40)
+            }).onAppear {
             if accountSetup {
-                obPath.path.append("music-service")
+//                obPath.path.append("music-service")
             } else {
                 showingSetupSheet = accountCreated
             }
@@ -170,33 +180,98 @@ struct CoolTextfieldStyle: TextFieldStyle {
 }
 
 struct EmailPasswordAuthSheet: View {
-    @EnvironmentObject var obPath: OnboardingPath
+    var signUp: Bool = true
+    @EnvironmentObject var pilot: UIPilot<OnboardingPages>
     @Environment(\.dismiss) var dismiss
     @State var email: String = ""
     @State var password: String = ""
     @State var username: String = ""
     @AppStorage("accountSetup") var accountSetup = false
     @AppStorage("accountCreated") var accountCreated = false
+    @State var errorText: String?
+    @State var latestRes: SQSignUpResponse?
     var body: some View {
         VStack {
             TextField("Email", text: $email).textFieldStyle(CoolTextfieldStyle()).padding()
             SecureField("Password", text: $password).textFieldStyle(CoolTextfieldStyle()).padding()
-            TextField("username", text: $username).textFieldStyle(CoolTextfieldStyle()).padding()
+            if signUp {
+                TextField("username", text: $username).textFieldStyle(CoolTextfieldStyle()).padding()
+            }
+            if let errorText = errorText {
+                Text(errorText).foregroundStyle(.red)
+            }
+            if let latestRes = latestRes {
+                if latestRes == .incorrectPassword {
+                    Button(action: {
+                        if email != "" {
+                            Task {
+                                await FIRManager.shared.sendPasswordResetEmail(email: email)
+                            }
+                        }
+                    }, label: {
+                        Text("Maybe try resetting your password?")
+                    })
+                }
+            }
             GradientButton {
-                Task {
-                    if await FIRManager.shared.signUp(username:username, email:email, password:password) {
-                        accountSetup = true
-                        accountCreated = true
-                        obPath.path.append("music-service")
-                        dismiss()
+                if signUp {
+                    if validateUsername() {
+                        Task {
+                            let res = await FIRManager.shared.signUp(username:username, email:email, password:password)
+                            if res == .success {
+                                accountSetup = true
+                                accountCreated = true
+                                pilot.push(.musicService)
+                                dismiss()
+                            } else {
+                                errorText = res.rawValue
+                            }
+                            latestRes = res
+                        }
+                    } else {
+                        errorText = "That username doesn't work. Please try again."
                     }
-                    
+                } else {
+                    Task {
+                        let res = await FIRManager.shared.signIn(email: email, password: password)
+                        if res == .success {
+                            accountSetup = true
+                            accountCreated = true
+    //                        obPath.path.append("music-service")
+                            pilot.push(.musicService)
+                            dismiss()
+                        } else {
+                            errorText = res.rawValue
+                        }
+                        latestRes = res
+                    }
                 }
             } label: {
-                Text("Sign Up")
+                if signUp {
+                    Text("Sign Up")
+                } else {
+                    Text("Log In")
+                }
             }.frame(height: 70).padding()
+            if !signUp {
+                Button(action: {
+                    if email != "" {
+                        Task {
+                            await FIRManager.shared.sendPasswordResetEmail(email: email)
+                        }
+                    }
+                }, label: {
+                    Text("Forgot your password?")
+                })
+            }
+            Spacer()
 
         }
+    }
+    func validateUsername() -> Bool {
+        if username.contains(" ") { return false }
+        if username.isEmpty { return false }
+        return true
     }
 }
 

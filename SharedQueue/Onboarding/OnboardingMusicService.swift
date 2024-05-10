@@ -7,9 +7,9 @@
 
 import MusicKit
 import SwiftUI
-
+import UIPilot
 struct OnboardingMusicService: View {
-    @EnvironmentObject var obPath: OnboardingPath
+    @EnvironmentObject var pilot: UIPilot<OnboardingPages>
     var body: some View {
         ZStack {
             LinearGradient(colors: [Color.appGradient1, Color.appGradient2], startPoint: .topLeading, endPoint: .bottomTrailing).ignoresSafeArea()
@@ -27,13 +27,14 @@ struct OnboardingMusicService: View {
                         }.padding(.vertical, 15)
                         MusicServiceCard(image: .spotifyIcon, title: "Spotify") {
                                 SpotifyAuthService.shared.openSpotifyAuth()
-                            obPath.path.append("final-notes")
+//                            obPath.path.append("final-notes")
+                            pilot.push(.finalNotes)
                         }
                     }
                 }.cornerRadius(50).ignoresSafeArea().frame(height: 450)
             }
         }.preferredColorScheme(.dark).onAppear(perform: {
-            print(obPath.path)
+//            print(obPath.path)
         })
     }
 
@@ -41,7 +42,8 @@ struct OnboardingMusicService: View {
         var res = await MusicAuthorization.request()
         switch res {
             case .authorized:
-                obPath.path.append("final-notes")
+//                obPath.path.append("final-notes")
+            pilot.push(.finalNotes)
             default:
                 break
         }
@@ -69,8 +71,4 @@ struct MusicServiceCard: View {
             }.foregroundStyle(.black)
         }).padding(.horizontal, 15)
     }
-}
-
-#Preview {
-    OnboardingMusicService().environmentObject(OnboardingPath())
 }
