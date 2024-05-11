@@ -18,7 +18,7 @@ class FIRManager: ObservableObject {
     var authToken: String?
     var syncManager: SharedQSyncManager
     var setupQueue = false
-    var env = ServerID.superDev
+    var env = ServerID.beta
     var baseURL: String
     var baseWSURL: String
     static var shared = FIRManager()
