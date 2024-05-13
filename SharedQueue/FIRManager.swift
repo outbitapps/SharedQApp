@@ -73,8 +73,10 @@ class FIRManager: ObservableObject {
         do {
             let (data, res) = try await URLSession.shared.data(for: userRequest)
             if let http = res.http {
+                await self.refreshData()
                 return 200...299 ~= http.statusCode
             }
+            
         } catch {
             print(error)
         }
@@ -118,7 +120,7 @@ class FIRManager: ObservableObject {
         var userRequest = URLRequest(url: URL(string: "\(baseURL)/users/login")!)
         userRequest.httpMethod = "PUT"
 //        userRequest.httpBody = try? JSONEncoder().encode(UserSignup(email: email, username: username, password: password))
-        userRequest.addValue("Basic \("\(email.lowercased()):\(password)".base64Encoded() ?? "asf")", forHTTPHeaderField: "Authorization")
+        userRequest.addValue("Basic \("\(email.lowercased()):\(password)".data(using: .utf8)?.base64EncodedString() ?? "asf")", forHTTPHeaderField: "Authorization")
         do {
             let (data, res) = try await URLSession.shared.data(for: userRequest)
 //            if String(data: data, encoding: .utf8) == "Success!" || String(data: data, encoding: .utf8) == "User already exists!" {

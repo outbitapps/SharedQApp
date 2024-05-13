@@ -85,7 +85,6 @@ class SpotifyService: NSObject, MusicService {
                     print("thingy", thing, err)
                 }
             }
-            
         }
     }
     

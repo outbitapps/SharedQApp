@@ -84,11 +84,13 @@ struct PreviewQueueView: View {
                         
                     }
                     Spacer()
-                }.padding().foregroundStyle(Color.white.fromHex(group.currentlyPlaying!.colors[0])!.isDark ? .white : .black)
+                }.padding().foregroundStyle(bottomColor.isDark ? .white : .black)
             }.onAppear
             {
-                backgroundColor = Color.white.fromHex(group.currentlyPlaying!.colors[1]) ?? Color.secondary
-                bottomColor = Color.white.fromHex(group.currentlyPlaying!.colors[0]) ?? Color.secondary
+                if let currentlyPlaying = group.currentlyPlaying {
+                    backgroundColor = Color.white.fromHex(currentlyPlaying.colors[1]) ?? Color.secondary
+                    bottomColor = Color.white.fromHex(currentlyPlaying.colors[0]) ?? Color.secondary
+                }
             }
         }
     }

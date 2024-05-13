@@ -15,7 +15,6 @@ struct GroupConnectedView: View {
     @State var bottomColor: Color = Color.secondary
     @Environment(\.dismiss) var dismiss
     @State var showingQueue = false
-    @State var isGroupOwner = false
     @State var count = 0
     @State var showingAdminSettings = false
     @State var playbackTime = 0.0
@@ -27,7 +26,7 @@ struct GroupConnectedView: View {
     var body: some View {
         if !fullscreenMode {
             if let group = firManager.connectedGroup, let playbackState = group.playbackState {
-                let myPermissions = group.members.first(where: {$0.user.id == firManager.currentUser!.id}) ?? SQUserPermissions(id: UUID().uuidString, user: firManager.currentUser!, canControlPlayback: true, canAddToQueue: true)
+                let myPermissions = group.members.first(where: {$0.user.id == firManager.currentUser!.id}) ?? SQGroupMember(id: UUID(), user: firManager.currentUser!, canControlPlayback: false, canAddToQueue: false, isOwner: false)
                 ZStack {
                     if let currentSong = firManager.connectedGroup!.currentlyPlaying {
     //                    LinearGradient(colors: currentSong.colors.toColor(), startPoint: .topLeading, endPoint: .bottomTrailing).ignoresSafeArea()
@@ -54,7 +53,7 @@ struct GroupConnectedView: View {
                         }
                         PlaybackControls(group: group).disabled(!myPermissions.canControlPlayback)
                         Spacer()
-                        groupControls()
+                        groupControls(myPermissions: myPermissions)
                     }.padding(20).foregroundStyle(Color.white.fromHex(firManager.connectedGroup!.currentlyPlaying!.colors[0])!.isDark ? .white : .black).scaleEffect(x: showingQueue || showingAdminSettings ? 0.8 : 1.0, y: showingQueue || showingAdminSettings ? 0.8 : 1.0).blur(radius: showingQueue || showingAdminSettings ? 50 : 0).animation(.spring, value: showingQueue).animation(.spring, value: showingAdminSettings).overlay {
                         if showingQueue {
                             Rectangle().ignoresSafeArea().opacity(0)
@@ -80,7 +79,6 @@ struct GroupConnectedView: View {
                         colors.append(Color.white.fromHex(color)!)
                     }
                 }.onAppear {
-                    isGroupOwner = firManager.connectedGroup!.owner.id == firManager.currentUser!.id
                     for window in NSApplication.shared.windows {
                         if window.title == "Group" {
                             window.title = firManager.connectedGroup?.name ?? "Group"
@@ -107,7 +105,7 @@ struct GroupConnectedView: View {
             GroupConnectedFullscreenView(fullscreenMode: $fullscreenMode)
         }
     }
-    @ViewBuilder func groupControls() -> some View {
+    @ViewBuilder func groupControls(myPermissions: SQGroupMember) -> some View {
         HStack {
             Button(action: {
                 Task {
@@ -127,7 +125,7 @@ struct GroupConnectedView: View {
             }).frame(height: 50).padding(5)
             
         }
-        if isGroupOwner {
+        if myPermissions.isOwner {
             Button(action: {
                 showingAdminSettings = true
             }, label: {

@@ -41,7 +41,8 @@ struct ConfirmJoinView: View {
                         HStack {
                             Button(action: {
                                 Task {
-                                    FIRManager.shared.syncManager.connectToGroup(group: group, user: FIRManager.shared.currentUser!)
+//                                    FIRManager.shared.syncManager.connectToGroup(group: group, user: FIRManager.shared.currentUser!)
+                                    FIRManager.shared.syncManager.connectToGroup(group:group, token: FIRManager.shared.authToken ?? "fucked")
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
                                         openWindow(id: "groupconnectedview")
                                     })

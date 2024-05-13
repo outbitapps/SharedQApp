@@ -16,7 +16,6 @@ struct GroupConnectedFullscreenView: View {
     @State var bottomColor: Color = Color.secondary
     @Environment(\.dismiss) var dismiss
     @State var showingQueue = false
-    @State var isGroupOwner = false
     @State var count = 0
     @State var showingAdminSettings = false
     @State var playbackTime = 0.0
@@ -27,7 +26,7 @@ struct GroupConnectedFullscreenView: View {
     @Binding var fullscreenMode: Bool
     var body: some View {
         if let group = firManager.connectedGroup, let playbackState = group.playbackState {
-            let myPermissions = group.members.first(where: {$0.user.id == firManager.currentUser!.id}) ?? SQUserPermissions(id: UUID().uuidString, user: firManager.currentUser!, canControlPlayback: true, canAddToQueue: true)
+            let myPermissions = group.members.first(where: {$0.user.id == firManager.currentUser!.id}) ?? SQGroupMember(id: UUID(), user: firManager.currentUser!, canControlPlayback: false, canAddToQueue: false, isOwner: false)
             ZStack {
                 if let currentSong = firManager.connectedGroup!.currentlyPlaying {
 //                    LinearGradient(colors: currentSong.colors.toColor(), startPoint: .topLeading, endPoint: .bottomTrailing).ignoresSafeArea()
@@ -51,7 +50,6 @@ struct GroupConnectedFullscreenView: View {
                     colors.append(Color.white.fromHex(color)!)
                 }
             }.onAppear {
-                isGroupOwner = firManager.connectedGroup!.owner.id == firManager.currentUser!.id
                 for window in NSApplication.shared.windows {
                     if window.title == "Group" {
                         window.title = firManager.connectedGroup?.name ?? "Group"

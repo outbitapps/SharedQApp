@@ -102,13 +102,13 @@ struct ConnectedAdminSettings: View {
 }
 
 struct MemberManagementCell: View {
-    var user: SQUserPermissions
+    var user: SQGroupMember
     var backgroundColor: Color
     var bottomColor: Color
     @StateObject var firManager = FIRManager.shared
     @State var canControlPlayback = false
     @State var loading = false
-    init(user: SQUserPermissions, backgroundColor: Color, bottomColor: Color) {
+    init(user: SQGroupMember, backgroundColor: Color, bottomColor: Color) {
         self.user = user
         self.backgroundColor = backgroundColor
         self.bottomColor = bottomColor

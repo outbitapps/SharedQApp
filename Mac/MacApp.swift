@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Firebase
 import Combine
 
 var musicService = AppleMusicService()
@@ -27,9 +26,6 @@ var enterFullscreenNotification = NotificationCenter.default.publisher(for: NSWi
 var exitFullscreenNotification = NotificationCenter.default.publisher(for: NSWindow.didExitFullScreenNotification)
 @main
 struct MacApp: App {
-    init() {
-        FirebaseApp.configure()
-    }
     var body: some Scene {
         WindowGroup {
             ContentView().environmentObject(FIRManager.shared)
