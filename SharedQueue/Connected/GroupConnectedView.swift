@@ -5,9 +5,9 @@
 //  Created by Payton Curry on 3/24/24.
 //
 
-import SwiftUI
 import MusicKit
 import SharedQProtocol
+import SwiftUI
 struct GroupConnectedView: View {
     @StateObject var firManager = FIRManager.shared
     @State var backgroundColor: Color = Color.secondary
@@ -22,8 +22,7 @@ struct GroupConnectedView: View {
     var checkPlaybackTimer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
     @ObservedObject var applePlaybackState = ApplicationMusicPlayer.shared.state
     var body: some View {
-        if let group = firManager.connectedGroup, let playbackState = group.playbackState, let myPermissions = group.members.first(where: {$0.user.id == firManager.currentUser!.id}) {
-            
+        if let group = firManager.connectedGroup, let playbackState = group.playbackState, let myPermissions = group.members.first(where: { $0.user.id == firManager.currentUser!.id }) {
             ZStack {
                 if let currentSong = firManager.connectedGroup!.currentlyPlaying {
                     LinearGradient(colors: currentSong.colors.toColor(), startPoint: .topLeading, endPoint: .bottomTrailing).ignoresSafeArea()
@@ -44,7 +43,7 @@ struct GroupConnectedView: View {
                         }
                         Spacer()
                     }.padding(.horizontal, 10)
-                    Slider(value: $playbackTime, in: 0...group.currentlyPlaying!.duration) { editing in
+                    Slider(value: $playbackTime, in: 0 ... group.currentlyPlaying!.duration) { editing in
                         print(editing)
                     }
                     PlaybackControls(group: group).disabled(!myPermissions.canControlPlayback)
@@ -57,16 +56,15 @@ struct GroupConnectedView: View {
                 }
                 if showingQueue {
                     queueView()
-
                 }
                 if showingAdminSettings {
                     adminView()
                 }
-            }.onChange(of: showingQueue) { oldValue, newValue in
+            }.onChange(of: showingQueue) { _, _ in
                 count += 1
-            }.onChange(of: showingAdminSettings, { oldValue, newValue in
+            }.onChange(of: showingAdminSettings, { _, _ in
                 count += 1
-            }).onChange(of: firManager.connectedGroup?.currentlyPlaying?.title, initial: true) { oldValue, newValue in
+            }).onChange(of: firManager.connectedGroup?.currentlyPlaying?.title, initial: true) { _, _ in
                 backgroundColor = Color.white.fromHex(firManager.connectedGroup!.currentlyPlaying!.colors[1]) ?? Color.secondary
                 bottomColor = Color.white.fromHex(firManager.connectedGroup!.currentlyPlaying!.colors[0]) ?? Color.secondary
             }.onAppear {
@@ -84,6 +82,7 @@ struct GroupConnectedView: View {
             ProgressView()
         }
     }
+
     @ViewBuilder func groupControls() -> some View {
         HStack {
             Button(action: {
@@ -108,7 +107,6 @@ struct GroupConnectedView: View {
                     Text("Queue").foregroundStyle(bottomColor).font(.title3).bold()
                 }
             }).frame(height: 50).padding(5)
-            
         }
         if isGroupOwner {
             Button(action: {
@@ -125,12 +123,12 @@ struct GroupConnectedView: View {
             Text("remember: playback controls sync between everyone! if you skip a song, that song is skipped for everybody.").font(.caption).foregroundStyle(.secondary)
         }
     }
+
     @ViewBuilder func queueView() -> some View {
         ConnectedQueueView(showingQueue: $showingQueue).keyframeAnimator(initialValue: ShowingQueueAnimationValues.EnterQueue, trigger: count) { view, val in
             view.scaleEffect(x: val.scaleX, y: val.scaleY).blur(radius: val.blurRadius).opacity(val.opacity)
-        } keyframes: { val in
+        } keyframes: { _ in
             KeyframeTrack(\.scaleX) {
-                
                 SpringKeyframe(1.0, duration: 0.8, spring: .bouncy(extraBounce: 0.05))
             }
             KeyframeTrack(\.scaleY) {
@@ -144,12 +142,12 @@ struct GroupConnectedView: View {
             }
         }
     }
+
     @ViewBuilder func adminView() -> some View {
         ConnectedAdminSettings(showingAdminSettings: $showingAdminSettings).keyframeAnimator(initialValue: ShowingQueueAnimationValues.EnterQueue, trigger: count) { view, val in
             view.scaleEffect(x: val.scaleX, y: val.scaleY).blur(radius: val.blurRadius).opacity(val.opacity)
-        } keyframes: { val in
+        } keyframes: { _ in
             KeyframeTrack(\.scaleX) {
-                
                 SpringKeyframe(1.0, duration: 0.8, spring: .bouncy(extraBounce: 0.05))
             }
             KeyframeTrack(\.scaleY) {
@@ -171,7 +169,6 @@ struct PlaybackControls: View {
     var body: some View {
         HStack {
             Button(action: {
-                
             }, label: {
                 Image(systemName: "backward.fill")
             })
@@ -180,9 +177,9 @@ struct PlaybackControls: View {
                 Task {
                     if let playbackState = group.playbackState {
                         if playbackState.state == .play {
-                            try? await firManager.syncManager.pauseSong()
+                            await firManager.pauseSong()
                         } else {
-                            try? await firManager.syncManager.playSong()
+                            await firManager.playSong()
                         }
                     }
                 }
@@ -193,7 +190,7 @@ struct PlaybackControls: View {
             Spacer()
             Button {
                 Task {
-                    try? await firManager.syncManager.nextSong()
+                    await firManager.nextSong()
                 }
             } label: {
                 Image(systemName: "forward.fill")

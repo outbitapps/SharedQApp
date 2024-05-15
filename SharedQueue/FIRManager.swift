@@ -18,7 +18,7 @@ class FIRManager: ObservableObject {
     var authToken: String?
     var syncManager: SharedQSyncManager
     var setupQueue = false
-    var env = ServerID.beta
+    var env = ServerID.superDev
     var baseURL: String
     var baseWSURL: String
     static var shared = FIRManager()
@@ -42,7 +42,7 @@ class FIRManager: ObservableObject {
             userRequest.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
             print(userRequest.allHTTPHeaderFields)
             do {
-                let (data, _) = try await URLSession.shared.data(for: userRequest)
+                let (data, res) = try await URLSession.shared.data(for: userRequest)
                 if let user = try? JSONDecoder().decode(SQUser.self, from: data) {
                     DispatchQueue.main.async {
                         self.currentUser = user
@@ -51,7 +51,7 @@ class FIRManager: ObservableObject {
                     }
                 } else {
                     print(String(data: data, encoding: .utf8))
-                    if String(data: data, encoding: .utf8) == "That user could not be found." {
+                    if let http = res.http, http.statusCode == 401 {
                         UserDefaults.standard.set(false, forKey: "accountCreated")
                         UserDefaults.standard.set(false, forKey: "accountSetup")
                         UserDefaults.standard.set(false, forKey: "completedOnboarding")
@@ -63,6 +63,22 @@ class FIRManager: ObservableObject {
         }
     }
     
+    func pauseSong() async {
+        await musicService.pauseSong()
+        try? await self.syncManager.pauseSong()
+    }
+    
+    func playSong() async {
+        if let connectedGroup = connectedGroup, let currentlyPlaying = connectedGroup.currentlyPlaying {
+            await musicService.playSong(song: currentlyPlaying)
+            try? await self.syncManager.playSong()
+        }
+    }
+    
+    func nextSong() async {
+        await musicService.nextSong()
+        try? await self.syncManager.nextSong()
+    }
 
     func createGroup(_ group: SQGroup) async -> Bool {
         var userRequest = URLRequest(url: URL(string: "\(baseURL)/groups/create")!)
