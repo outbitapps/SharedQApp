@@ -197,12 +197,16 @@ struct HomeGroupCell: View {
         }
     }
     func lastConnectedString() -> String {
-        var lastConnectedDate = group.members.first(where: {$0.user.id == firManager.currentUser!.id})?.lastConnected
-        lastConnectedDate = Date().addingTimeInterval(-60*60*24*12)
-        if let lastConnectedDate = lastConnectedDate {
-            return lastConnectedDate.timeAgoDisplay()
+        if let currentUser = firManager.currentUser {
+            var lastConnectedDate = group.members.first(where: {$0.user.id == currentUser.id})?.lastConnected
+            lastConnectedDate = Date().addingTimeInterval(-60*60*24*12)
+            if let lastConnectedDate = lastConnectedDate {
+                return lastConnectedDate.timeAgoDisplay()
+            } else {
+                return "Never"
+            }
         } else {
-            return "Never"
+            return "Loading..."
         }
         
     }
@@ -280,8 +284,8 @@ struct CreateGroupView: View {
         }
     }
     func createGroup() async {
-        if !groupName.isEmpty {
-            let group = SQGroup(id: UUID(), name: groupName, defaultPermissions: SQDefaultPermissions(id: UUID(), membersCanControlPlayback: membersControlPlayback, membersCanAddToQueue: membersAddToQueue), members: [SQGroupMember(id: UUID(), user: firManager.currentUser!, canControlPlayback: true, canAddToQueue: true, isOwner: true)], publicGroup: publicGroup, askToJoin: askToJoin, previewQueue: [])
+        if let currentUser = firManager.currentUser, !groupName.isEmpty {
+            let group = SQGroup(id: UUID(), name: groupName, defaultPermissions: SQDefaultPermissions(id: UUID(), membersCanControlPlayback: membersControlPlayback, membersCanAddToQueue: membersAddToQueue), members: [SQGroupMember(id: UUID(), user: currentUser, canControlPlayback: true, canAddToQueue: true, isOwner: true)], publicGroup: publicGroup, askToJoin: askToJoin, previewQueue: [])
             if await firManager.createGroup(group) {
                 groupBeingCreated = group
                 dismiss()

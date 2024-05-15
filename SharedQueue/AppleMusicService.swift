@@ -9,15 +9,15 @@ import Foundation
 import MusadoraKit
 import SwiftUI
 #if os(iOS)
-import SwiftVibrant
+    import SwiftVibrant
 #endif
 import MusicKit
 import SharedQProtocol
 
 #if os(macOS)
-import AppKit
-typealias UIImage = NSImage
-typealias UIColor = NSColor
+    import AppKit
+    typealias UIImage = NSImage
+    typealias UIColor = NSColor
 #endif
 
 class AppleMusicService: MusicService {
@@ -30,7 +30,6 @@ class AppleMusicService: MusicService {
                         if group.playbackState?.state == .play {
                             Task {
                                 try? await FIRManager.shared.syncManager.pauseSong()
-                                
                             }
                         }
                     }
@@ -59,14 +58,14 @@ class AppleMusicService: MusicService {
                         }
                     }
                 case .seekingForward:
-                    break;
+                    break
                 case .seekingBackward:
-                    break;
+                    break
                 }
             }
         }
     }
-    
+
     func getMostRecentSong() async -> SQSong? {
         let songs = try? await MLibrary.recentlyPlayedSongs(offset: 0)
         if let songs = songs, !songs.isEmpty {
@@ -76,6 +75,7 @@ class AppleMusicService: MusicService {
         }
         return nil
     }
+
     func recentlyPlayed() async -> [SQSong] {
         do {
             let recents = try await MLibrary.recentlyPlayedSongs(offset: 0)
@@ -88,40 +88,41 @@ class AppleMusicService: MusicService {
             }
             return returnVal
         } catch {
-            
         }
         return []
     }
+
     func songToSQSong(_ song: Song) async -> SQSong? {
-        var sqSong = SQSong(title: song.title, artist: song.artistName, duration: song.duration!)
+        var sqSong = SQSong(title: song.title, artist: song.artistName, duration: song.duration ?? 0)
         var songsFromStore = try? await MCatalog.searchSongs(for: "\(song.title) \(song.artistName) \(song.albumTitle ?? "")")
         if let songsFromStore = songsFromStore, !songsFromStore.isEmpty {
             let songFromStore = songsFromStore[0]
             let artwork = songFromStore.artwork
             sqSong.albumArt = artwork?.url(width: 512, height: 512)
             #if os(iOS)
-            do {
-                let (data, _) = try await URLSession.shared.data(from: sqSong.albumArt!)
-                print(data)
-                let uiImage = UIImage(data: data)
-                if let uiImage = uiImage {
-                    let palette = Vibrant.from(uiImage).getPalette()
-                    print(palette)
-                    let vibrant = palette.Vibrant!.uiColor.toHex()!
-                    let darkVibrant = palette.DarkVibrant!.uiColor.toHex()!
-                    
-                    sqSong.colors = [vibrant, darkVibrant]
+                if let albumArt = sqSong.albumArt {
+                    do {
+                        let (data, _) = try await URLSession.shared.data(from: albumArt)
+                        print(data)
+                        let uiImage = UIImage(data: data)
+                        if let uiImage = uiImage {
+                            let palette = Vibrant.from(uiImage).getPalette()
+                            print(palette)
+                            let vibrant = palette.Vibrant!.uiColor.toHex()!
+                            let darkVibrant = palette.DarkVibrant!.uiColor.toHex()!
+
+                            sqSong.colors = [vibrant, darkVibrant]
+                        }
+                    } catch {
+                    }
                 }
-            } catch {
-                
-            }
             #endif
         }
         return sqSong
     }
+
     func sqSongToSong(_ song: SQSong) async -> Song? {
         do {
-            
             var appleMusicSong = try await MLibrary.searchSongs(for: "\(song.title) \(song.artist)")
             if appleMusicSong.isEmpty {
                 appleMusicSong = try await MCatalog.searchSongs(for: "\(song.title) \(song.artist)")
@@ -132,25 +133,30 @@ class AppleMusicService: MusicService {
         }
         return nil
     }
+
     func playSong(song: SQSong) async {
         do {
             let appleMusicSong = await sqSongToSong(song)
 //            try await ApplicationMusicPlayer.shared.prepareToPlay()
             try await ApplicationMusicPlayer.shared.play(song: appleMusicSong!)
-            
+
         } catch {
             print("error playing song: \(error)")
         }
     }
+
     func playAt(timestamp: TimeInterval) async {
         ApplicationMusicPlayer.shared.playbackTime = timestamp
     }
+
     func getSongTimestamp() async -> TimeInterval {
-            return ApplicationMusicPlayer.shared.playbackTime
+        return ApplicationMusicPlayer.shared.playbackTime
     }
+
     func stopPlayback() async {
         ApplicationMusicPlayer.shared.stop()
     }
+
     func addQueue(queue: [SQSong]) async {
 //        var queue1 = queue
 //        for index in queue1.indices {
@@ -170,25 +176,30 @@ class AppleMusicService: MusicService {
 //        try! await ApplicationMusicPlayer.shared.queue.insert(amSongs.first, position: .afterCurrentEntry)
 //        ApplicationMusicPlayer.shared.state.repeatMode = .one
     }
+
     func nextSong() async {
         try! await ApplicationMusicPlayer.shared.skipToNextEntry()
     }
+
     func pauseSong() async {
         print("pausing")
         ApplicationMusicPlayer.shared.pause()
     }
+
     func prevSong() async {
         try! await ApplicationMusicPlayer.shared.skipToPreviousEntry()
     }
+
     func seekTo(timestamp: TimeInterval) async {
         ApplicationMusicPlayer.shared.playbackTime = timestamp
     }
+
     func searchFor(_ query: String) async -> [SQSong] {
         do {
             let appleMusicSongs = try await MCatalog.searchSongs(for: query)
             var returnValue = [SQSong]()
             for song in appleMusicSongs {
-                if let sqSong = await self.songToSQSong(song) {
+                if let sqSong = await songToSQSong(song) {
                     returnValue.append(sqSong)
                 }
             }
@@ -232,9 +243,9 @@ extension SwiftUI.Color {
         }
 
         return SwiftUI.Color(red: r, green: g, blue: b, opacity: a)
-    
     }
 }
+
 extension SwiftUI.Color {
     func toHex() -> String? {
         let uic = UIColor(self)

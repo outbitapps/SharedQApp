@@ -57,10 +57,12 @@ struct ConnectedAddToQueueView: View {
     }
     @ViewBuilder func songCell(_ result: SQSong) -> some View {
         Button(action: {
-            Task {
-                try? await FIRManager.shared.syncManager.addToQueue(song: result, user: FIRManager.shared.currentUser!)
-//                await UINotificationFeedbackGenerator().notificationOccurred(.success)
-                dismiss()
+            if let currentUser = FIRManager.shared.currentUser {
+                Task {
+                    try? await FIRManager.shared.syncManager.addToQueue(song: result, user: currentUser)
+    //                await UINotificationFeedbackGenerator().notificationOccurred(.success)
+                    dismiss()
+                }
             }
         }, label: {
             HStack {

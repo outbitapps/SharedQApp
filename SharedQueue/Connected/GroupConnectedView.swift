@@ -22,9 +22,9 @@ struct GroupConnectedView: View {
     var checkPlaybackTimer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
     @ObservedObject var applePlaybackState = ApplicationMusicPlayer.shared.state
     var body: some View {
-        if let group = firManager.connectedGroup, let playbackState = group.playbackState, let myPermissions = group.members.first(where: { $0.user.id == firManager.currentUser!.id }) {
+        if let group = firManager.connectedGroup, let playbackState = group.playbackState, let currentUser = firManager.currentUser, let myPermissions = group.members.first(where: { $0.user.id == currentUser.id }) {
             ZStack {
-                if let currentSong = firManager.connectedGroup!.currentlyPlaying {
+                if let currentSong = group.currentlyPlaying {
                     LinearGradient(colors: currentSong.colors.toColor(), startPoint: .topLeading, endPoint: .bottomTrailing).ignoresSafeArea()
                 }
                 VStack(alignment: .center) {
@@ -43,13 +43,14 @@ struct GroupConnectedView: View {
                         }
                         Spacer()
                     }.padding(.horizontal, 10)
-                    Slider(value: $playbackTime, in: 0 ... group.currentlyPlaying!.duration) { editing in
-                        print(editing)
-                    }
+                    if let currentSong = group.currentlyPlaying {
+                        Slider(value: $playbackTime, in: 0 ... currentSong.duration) { editing in
+                            print(editing)
+                        }                    }
                     PlaybackControls(group: group).disabled(!myPermissions.canControlPlayback)
                     Spacer()
                     groupControls()
-                }.padding().foregroundStyle(Color.white.fromHex(firManager.connectedGroup!.currentlyPlaying!.colors[0])!.isDark ? .white : .black).scaleEffect(x: showingQueue || showingAdminSettings ? 0.8 : 1.0, y: showingQueue || showingAdminSettings ? 0.8 : 1.0).blur(radius: showingQueue || showingAdminSettings ? 50 : 0).animation(.spring, value: showingQueue).animation(.spring, value: showingAdminSettings).overlay {
+                }.padding().foregroundStyle(bottomColor.isDark ? .white : .black).scaleEffect(x: showingQueue || showingAdminSettings ? 0.8 : 1.0, y: showingQueue || showingAdminSettings ? 0.8 : 1.0).blur(radius: showingQueue || showingAdminSettings ? 50 : 0).animation(.spring, value: showingQueue).animation(.spring, value: showingAdminSettings).overlay {
                     if showingQueue {
                         Rectangle().ignoresSafeArea().opacity(0)
                     }
@@ -65,12 +66,14 @@ struct GroupConnectedView: View {
             }.onChange(of: showingAdminSettings, { _, _ in
                 count += 1
             }).onChange(of: firManager.connectedGroup?.currentlyPlaying?.title, initial: true) { _, _ in
-                backgroundColor = Color.white.fromHex(firManager.connectedGroup!.currentlyPlaying!.colors[1]) ?? Color.secondary
-                bottomColor = Color.white.fromHex(firManager.connectedGroup!.currentlyPlaying!.colors[0]) ?? Color.secondary
+                if let currentlyPlaying = group.currentlyPlaying {
+                    backgroundColor = Color.white.fromHex(currentlyPlaying.colors[1]) ?? Color.secondary
+                    bottomColor = Color.white.fromHex(currentlyPlaying.colors[0]) ?? Color.secondary
+                }
             }.onAppear {
                 isGroupOwner = myPermissions.isOwner
             }.onReceive(playbackTimer, perform: { _ in
-                if group.playbackState!.state != .pause {
+                if let playbackState = group.playbackState, playbackState.state != .pause {
                     playbackTime += 1
                 }
             }).onReceive(checkPlaybackTimer) { _ in
@@ -168,32 +171,35 @@ struct PlaybackControls: View {
     var group: SQGroup
     var body: some View {
         HStack {
-            Button(action: {
-            }, label: {
-                Image(systemName: "backward.fill")
-            })
-            Spacer()
-            Button(action: {
-                Task {
-                    if let playbackState = group.playbackState {
+            if let playbackState = group.playbackState {
+                Button(action: {
+                }, label: {
+                    Image(systemName: "backward.fill")
+                })
+                Spacer()
+                Button(action: {
+                    Task {
                         if playbackState.state == .play {
                             await firManager.pauseSong()
                         } else {
                             await firManager.playSong()
                         }
                     }
+                }, label: {
+                    Image(systemName: playbackState.state == PlayPauseState.play ? "pause.fill" : "play.fill").font(.system(size: 60)).symbolEffect(.bounce, value: playbackState.state)
+                })
+                Spacer()
+                Button {
+                    Task {
+                        await firManager.nextSong()
+                    }
+                } label: {
+                    Image(systemName: "forward.fill")
                 }
-            }, label: {
-                let playbackState = group.playbackState!
-                Image(systemName: playbackState.state == PlayPauseState.play ? "pause.fill" : "play.fill").font(.system(size: 60)).symbolEffect(.bounce, value: playbackState.state)
-            })
-            Spacer()
-            Button {
-                Task {
-                    await firManager.nextSong()
-                }
-            } label: {
-                Image(systemName: "forward.fill")
+            } else {
+                Spacer()
+                ProgressView()
+                Spacer()
             }
 
         }.font(.system(size: 50)).padding(30)

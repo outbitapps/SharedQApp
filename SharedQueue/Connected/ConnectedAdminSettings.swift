@@ -90,10 +90,12 @@ struct ConnectedAdminSettings: View {
                             }
                         }
                     }.listStyle(.plain).listRowBackground(Color.clear).background(Color.clear)
-                }.padding().foregroundStyle(Color.white.fromHex(firManager.connectedGroup!.currentlyPlaying!.colors[0])!.isDark ? .white : .black)
+                }.padding().foregroundStyle(bottomColor.isDark ? .white : .black)
             }.onChange(of: firManager.connectedGroup?.currentlyPlaying?.title, initial: true) { _, _ in
-                backgroundColor = Color.white.fromHex(firManager.connectedGroup!.currentlyPlaying!.colors[1]) ?? Color.secondary
-                bottomColor = Color.white.fromHex(firManager.connectedGroup!.currentlyPlaying!.colors[0]) ?? Color.secondary
+                if let currentlyPlaying = group.currentlyPlaying {
+                    backgroundColor = Color.white.fromHex(currentlyPlaying.colors[1]) ?? Color.secondary
+                    bottomColor = Color.white.fromHex(currentlyPlaying.colors[0]) ?? Color.secondary
+                }
             }.onAppear {
                 publicGroup = group.publicGroup
             }
@@ -115,44 +117,48 @@ struct MemberManagementCell: View {
         self.canControlPlayback = user.canControlPlayback
     }
     var body: some View {
-        ZStack {
-            HStack {
-                Image(.mediaItemPlaceholder).resizable().frame(width: 50, height: 50).cornerRadius(10.0)
-                
-                Menu {
-                    Button(action: {
-                        firManager.connectedGroup!.members.removeAll(where: {$0.user.id == user.user.id})
-                        loading = true
-                        Task {
-                            await firManager.updateGroup(firManager.connectedGroup!)
-                            loading = false
-                        }
-                    }, label: {
-                        Text("Kick").foregroundStyle(.red)
-                    })
-                } label: {
-                    Text("\(user.user.username) \(Image(systemName: "ellipsis"))").fontWeight(.medium).font(.title2)
-                }
-
-                Spacer()
-                
-                VStack {
+        if firManager.connectedGroup != nil {
+            ZStack {
+                HStack {
+                    Image(.mediaItemPlaceholder).resizable().frame(width: 50, height: 50).cornerRadius(10.0)
                     
-                    Text("Controls Playback").font(.caption2).foregroundStyle(.black)
-                    Toggle("Controls Playback", isOn: $canControlPlayback).labelsHidden()
+                    Menu {
+                        Button(action: {
+                            firManager.connectedGroup!.members.removeAll(where: {$0.user.id == user.user.id})
+                            loading = true
+                            Task {
+                                await firManager.updateGroup(firManager.connectedGroup!)
+                                loading = false
+                            }
+                        }, label: {
+                            Text("Kick").foregroundStyle(.red)
+                        })
+                    } label: {
+                        Text("\(user.user.username) \(Image(systemName: "ellipsis"))").fontWeight(.medium).font(.title2)
+                    }
+
+                    Spacer()
+                    
+                    VStack {
+                        
+                        Text("Controls Playback").font(.caption2).foregroundStyle(.black)
+                        Toggle("Controls Playback", isOn: $canControlPlayback).labelsHidden()
+                    }
+                }.padding(10).background(content: { Color.white.opacity(0.2) }).cornerRadius(20.0).onChange(of: canControlPlayback, initial: false) { oldValue, newValue in
+                    FIRManager.shared.connectedGroup!.members[FIRManager.shared.connectedGroup!.members.firstIndex(where: {$0.user.id == user.user.id})!].canControlPlayback = newValue
+                    loading = true
+                    Task  {
+                        await firManager.updateGroup(firManager.connectedGroup!)
+                        loading = false
+                    }
+                }.disabled(loading)
+                if loading {
+                    RoundedRectangle(cornerRadius: 20.0).foregroundStyle(.black).opacity(0.7)
+                    ProgressView().preferredColorScheme(.dark)
                 }
-            }.padding(10).background(content: { Color.white.opacity(0.2) }).cornerRadius(20.0).onChange(of: canControlPlayback, initial: false) { oldValue, newValue in
-                FIRManager.shared.connectedGroup!.members[FIRManager.shared.connectedGroup!.members.firstIndex(where: {$0.user.id == user.user.id})!].canControlPlayback = newValue
-                loading = true
-                Task  {
-                    await firManager.updateGroup(firManager.connectedGroup!)
-                    loading = false
-                }
-            }.disabled(loading)
-            if loading {
-                RoundedRectangle(cornerRadius: 20.0).foregroundStyle(.black).opacity(0.7)
-                ProgressView().preferredColorScheme(.dark)
             }
+        } else {
+            ProgressView()
         }
     }
 }

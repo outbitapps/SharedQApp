@@ -47,7 +47,7 @@ class SpotifyService: NSObject, MusicService {
                 print(response.items[0].track.name)
                 return await self.trackToSQSong(track: response.items[0].track)
             } else {
-                print("error fetching song: \(err) \(String(data: data!, encoding: .utf8))")
+                print("error fetching song: \(err) \(String(data: data ?? Data(), encoding: .utf8))")
             }
            
         } catch {
@@ -67,7 +67,7 @@ class SpotifyService: NSObject, MusicService {
                     songs.append(await self.trackToSQSong(track: track.track))
                 }
             } else {
-                print("error fetching song: \(err) \(String(data: data!, encoding: .utf8))")
+                print("error fetching song: \(err) \(String(data: data ?? Data(), encoding: .utf8))")
             }
            
         } catch {
@@ -111,8 +111,7 @@ class SpotifyService: NSObject, MusicService {
     }
     
     func searchFor(_ query: String) async -> [SQSong] {
-        let (data, err) = await self.sendRequestToAPI(endpoint: "https://api.spotify.com/v1/search?q=\(query.addingPercentEncoding(withAllowedCharacters: .urlQueryAndPathAllowed)!)&type=track", body: nil, type: "GET")
-//        print(String(data: data!, encoding: .utf8))
+        let (data, err) = await self.sendRequestToAPI(endpoint: "https://api.spotify.com/v1/search?q=\(query.addingPercentEncoding(withAllowedCharacters: .urlQueryAndPathAllowed)!)&type=track", body: nil, type: "GET")\
         if let data = data  {
             do {
                 let response = try JSONDecoder().decode(SearchResponse.self, from: data)
@@ -189,20 +188,22 @@ class SpotifyService: NSObject, MusicService {
         
         if let highestResImage = highestResImage {
             sqSong.albumArt = URL(string: highestResImage.url)
-            do {
-                let (data, _) = try await URLSession.shared.data(from: URL(string: highestResImage.url)!)
-                print(data)
-                let uiImage = UIImage(data: data)
-                if let uiImage = uiImage {
-                    let palette = Vibrant.from(uiImage).getPalette()
-                    print(palette)
-                    let vibrant = palette.Vibrant!.uiColor.toHex()!
-                    let darkVibrant = palette.DarkVibrant!.uiColor.toHex()!
+            if let url =  URL(string: highestResImage.url) {
+                do {
+                    let (data, _) = try await URLSession.shared.data(from: url)
+                    print(data)
+                    let uiImage = UIImage(data: data)
+                    if let uiImage = uiImage {
+                        let palette = Vibrant.from(uiImage).getPalette()
+                        print(palette)
+                        let vibrant = palette.Vibrant!.uiColor.toHex()!
+                        let darkVibrant = palette.DarkVibrant!.uiColor.toHex()!
+                        
+                        sqSong.colors = [vibrant, darkVibrant]
+                    }
+                } catch {
                     
-                    sqSong.colors = [vibrant, darkVibrant]
                 }
-            } catch {
-                
             }
         }
         return sqSong
@@ -232,7 +233,7 @@ class SpotifyService: NSObject, MusicService {
         urlSesh.allowsCellularAccess = true
         urlSesh.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
         if type != "GET" {
-            urlSesh.httpBody = body!
+            urlSesh.httpBody = body ?? Data()
         }
         urlSesh.httpMethod = type
         do {
