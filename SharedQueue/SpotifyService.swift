@@ -111,7 +111,7 @@ class SpotifyService: NSObject, MusicService {
     }
     
     func searchFor(_ query: String) async -> [SQSong] {
-        let (data, err) = await self.sendRequestToAPI(endpoint: "https://api.spotify.com/v1/search?q=\(query.addingPercentEncoding(withAllowedCharacters: .urlQueryAndPathAllowed)!)&type=track", body: nil, type: "GET")\
+        let (data, err) = await self.sendRequestToAPI(endpoint: "https://api.spotify.com/v1/search?q=\(query.addingPercentEncoding(withAllowedCharacters: .urlQueryAndPathAllowed)!)&type=track", body: nil, type: "GET")
         if let data = data  {
             do {
                 let response = try JSONDecoder().decode(SearchResponse.self, from: data)
