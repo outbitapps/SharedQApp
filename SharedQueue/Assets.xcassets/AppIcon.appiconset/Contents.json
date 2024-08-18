@@ -1,7 +1,31 @@
 {
   "images" : [
     {
-      "filename" : "shared!.png",
+      "filename" : "Artboard 1.png",
+      "idiom" : "universal",
+      "platform" : "ios",
+      "size" : "1024x1024"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Artboard 1sq-dark.png",
+      "idiom" : "universal",
+      "platform" : "ios",
+      "size" : "1024x1024"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "tinted"
+        }
+      ],
+      "filename" : "Artboard 1sq-tinted.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
